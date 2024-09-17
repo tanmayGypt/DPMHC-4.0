@@ -1,6 +1,10 @@
+import { useEffect } from "react";
 import VideoList from "../Page_Components/Videos/VideoList";
 
 function Videos() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div className="mt-20 mb-36">
       <div className="font-bold text-center text-3xl">

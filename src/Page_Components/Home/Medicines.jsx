@@ -2,7 +2,6 @@ import Medicine_Card from "./Medicine_Card";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import MovingComponent from "react-moving-text";
 import { Animator, batch, FadeIn, ZoomIn } from "react-scroll-motion";
 import { Link } from "react-router-dom";
 function Medicines() {

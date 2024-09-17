@@ -1,6 +1,9 @@
 import { Gallery } from "react-grid-gallery";
 
 function Gallary() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const Images = [
     {
       src: "g1.png",

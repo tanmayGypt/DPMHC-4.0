@@ -5,17 +5,13 @@ import Header from "../Page_Components/Home/Header";
 // import ElfsightWidget from "../Page_Components/Home/GoogleMapEmbed";
 import Medicines from "../Page_Components/Home/Medicines";
 import GoogleMapEmbed from "../Page_Components/Home/GoogleMapEmbed";
-import {
-  ScrollContainer,
-  Animator,
-  batch,
-  Fade,
-  Move,
-  Sticky,
-  ZoomIn,
-} from "react-scroll-motion";
+import { ScrollContainer } from "react-scroll-motion";
+import { useEffect } from "react";
 
 function Home() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div>
       <ScrollContainer>

@@ -1,6 +1,9 @@
 import { useEffect, useRef } from "react";
 
 function TrustmaryWidget() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const widgetRef = useRef(null);
 
   useEffect(() => {

@@ -43,7 +43,7 @@ function Medicine_Card({ medicine }) {
           </div>
           <div className="flex space-x-2 mt-3">
             <Link
-              to="/currentAddress"
+              to="/Content-Body/:id"
               onClick={notify}
               className="flex-1 text-white bg-red-500 border-0 py-2 px-4 focus:outline-none hover:bg-red-600 rounded text-sm text-center"
             >

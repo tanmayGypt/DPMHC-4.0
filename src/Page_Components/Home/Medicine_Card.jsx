@@ -1,9 +1,8 @@
-import toast, { Toaster } from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
 
 import { Link } from "react-router-dom";
-import Alert from "./Alert";
-const notify = () => toast.success("Item Added to Cart");
-export default function Medicine_Card() {
+
+export default function Medicine_Card({ medicine, buttontext }) {
   return (
     <>
       <div className="mx-auto duration-300 ease-in-out transition-transform transform hover:scale-105 py-4 px-8 h-3/5">
@@ -17,17 +16,27 @@ export default function Medicine_Card() {
               />
             </div>
 
-            <div className="mt-3">
+            <div className="mt-3 flex flex-col">
               <h2
                 className="font-medium text-base text-gray-800 text-start"
                 title="Immuno Plus"
               >
-                Sample Title
+                {medicine?.title ? medicine?.title : "Sample Title"}
               </h2>
+              <p className="mt-1 text-sm text-gray-700 text-start mb-4">
+                {medicine?.description
+                  ? medicine?.description
+                  : "Sample description"}
+              </p>
               <p className="mt-1 text-sm text-gray-700 text-start">
-                Immuno Plus tablets are a food supplement based on plant
-                extracts, vitamins, and minerals for promoting the body’s
-                natural defenses and immune system function.
+                <span className="font-bold">Author: </span>{" "}
+                <span className="">
+                  {medicine?.author ? medicine?.author : "Sample Author"}
+                </span>
+              </p>
+              <p className="mt-1 text-sm text-gray-700 text-start">
+                <span className="font-bold">Category: </span>
+                {medicine?.category ? medicine.category : "Sample Category"}
               </p>
 
               {/*<div className="flex items-center space-x-3 mt-2">
@@ -45,11 +54,10 @@ export default function Medicine_Card() {
 
           <div className="flex space-x-2 mt-3">
             <Link
-              to="/currentAddress"
-              onClick={notify}
+              to="/Content-Body/:id"
               className="flex-1 text-white bg-red-500 border-0 py-2 focus:outline-none hover:bg-red-600 rounded text-center"
             >
-              View Full Product
+              {buttontext ? buttontext : "View More"}
             </Link>
           </div>
 

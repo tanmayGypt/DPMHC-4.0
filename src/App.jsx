@@ -10,6 +10,9 @@ import { useEffect } from "react";
 import About from "./Page/About";
 import Review from "./Page/Review";
 import Gallary from "./Page/Gallary";
+import Blog from "./Page_Components/Home/Blog";
+import Blogs from "./Page/Blogs";
+import MedicoBlogs from "./Page/MedicoBlogs";
 // import Videos from "./Page/Videos";
 // import YoutubeVideos from "./Page/YoutubeVideos";
 // import YouTubePlayer from "./Page_Components/Videos/YouTubePlayer";
@@ -56,6 +59,8 @@ function App() {
           <Route path="/About" element={<About />} />
           <Route path="/Reviews" element={<Review />} />
           <Route path="/Gallary" element={<Gallary />} />
+          <Route path="/Blog-List" element={<Blogs />} />
+          <Route path="/Content-Body/:id" element={<MedicoBlogs />} />
         </Routes>
         <Footer />
       </BrowserRouter>
