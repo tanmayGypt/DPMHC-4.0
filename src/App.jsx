@@ -3,14 +3,14 @@ import Footer from "./Common_Components/Footer";
 import Navbar from "./Common_Components/Navbar";
 import Appointment from "./Page/Appointment";
 import Home from "./Page/Home";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route } from "react-router-dom";
 import Previous_Appointments from "./Page/Previous_Appointments";
 import Medicines from "./Page/Medicines";
 import { useEffect } from "react";
 import About from "./Page/About";
 import Review from "./Page/Review";
 import Gallary from "./Page/Gallary";
-import Blog from "./Page_Components/Home/Blog";
+// import Blog from "./Page_Components/Home/Blog";
 import Blogs from "./Page/Blogs";
 import MedicoBlogs from "./Page/MedicoBlogs";
 // import Videos from "./Page/Videos";
@@ -45,7 +45,7 @@ function Videos() {
 function App() {
   return (
     <>
-      <BrowserRouter>
+      <HashRouter>
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
@@ -63,7 +63,7 @@ function App() {
           <Route path="/Content-Body/:id" element={<MedicoBlogs />} />
         </Routes>
         <Footer />
-      </BrowserRouter>
+      </HashRouter>
     </>
   );
 }
