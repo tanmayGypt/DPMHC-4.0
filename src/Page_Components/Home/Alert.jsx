@@ -1,55 +1,27 @@
 import "./Ticker.css";
 
-function Alert() {
+function Alert({ notificationData }) {
   return (
     <div>
-      <Ticker />
+      <Ticker notificationData={notificationData} />
     </div>
   );
 }
 
 export default Alert;
 
-const Ticker = () => {
+const Ticker = ({ notificationData }) => {
   return (
     <div className="ticker-wrapper bg-red-500">
       <div className="ticker text-black">
-        <div className="ticker-item text-black font-bold">
-          Your moving text goes here
-        </div>
-        <div className="ticker-item text-black font-bold">
-          More text to scroll
-        </div>
-        <div className="ticker-item text-black font-bold">
-          Another piece of text
-        </div>
-        <div className="ticker-item text-black font-bold">
-          Your moving text goes here
-        </div>
-        <div className="ticker-item text-black font-bold">
-          More text to scroll
-        </div>
-        <div className="ticker-item text-black font-bold">
-          Another piece of text
-        </div>
-        <div className="ticker-item text-black font-bold">
-          Your moving text goes here
-        </div>
-        <div className="ticker-item text-black font-bold">
-          More text to scroll
-        </div>
-        <div className="ticker-item text-black font-bold">
-          Another piece of text
-        </div>
-        <div className="ticker-item text-black font-bold">
-          Your moving text goes here
-        </div>
-        <div className="ticker-item text-black font-bold">
-          More text to scroll
-        </div>
-        <div className="ticker-item text-black font-bold">
-          Another piece of text
-        </div>
+        {notificationData?.map((notification, index) => (
+          <div
+            key={index}
+            className="ticker-item flex-none px-8 text-black font-bold"
+          >
+            {notification.title}: {notification.message}
+          </div>
+        ))}
       </div>
     </div>
   );

@@ -13,9 +13,19 @@ import Gallary from "./Page/Gallary";
 // import Blog from "./Page_Components/Home/Blog";
 import Blogs from "./Page/Blogs";
 import MedicoBlogs from "./Page/MedicoBlogs";
+import axios from "axios";
+import SignupScreen from "./Page/SignUp";
+import OTPVerificationScreen from "./Page/otp";
+import LoginScreen from "./Page/Login";
+import ForgotPasswordEmailScreen from "./Page/EnterEmail";
+import ChangePassScreen from "./Page/ChangePass";
+import ForgoPassOTP from "./Page/ForgotPassOTP";
 // import Videos from "./Page/Videos";
 // import YoutubeVideos from "./Page/YoutubeVideos";
 // import YouTubePlayer from "./Page_Components/Videos/YouTubePlayer";
+
+
+
 function Videos() {
   useEffect(() => {
     // Dynamically load the script
@@ -43,6 +53,7 @@ function Videos() {
   );
 }
 function App() {
+
   return (
     <>
       <HashRouter>
@@ -61,6 +72,13 @@ function App() {
           <Route path="/Gallary" element={<Gallary />} />
           <Route path="/Blog-List" element={<Blogs />} />
           <Route path="/Content-Body/:id" element={<MedicoBlogs />} />
+          <Route path="/signup" element={<SignupScreen />} />
+
+          <Route path="/otp/:email/:fullName" element={<OTPVerificationScreen />} />
+          <Route path="/Login" element={<LoginScreen />} />
+          <Route path="/forgot-password" element={<ForgotPasswordEmailScreen />} />
+          <Route path="/forgot-password/Otp" element={<ForgoPassOTP />} />
+          <Route path="/reset-password" element={<ChangePassScreen />} />
         </Routes>
         <Footer />
       </HashRouter>

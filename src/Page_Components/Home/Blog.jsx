@@ -14,52 +14,61 @@ import {
   FadeIn,
   StickyIn,
 } from "react-scroll-motion";
-function Blog() {
+import { useEffect, useState } from "react";
+function Blog({ blogsData }) {
+
   const settings = {
     dots: true,
     infinite: true,
     speed: 500,
-    slidesToShow: 3, // Adjust the number of cards to show at once
+    slidesToShow: 4, // Default number of slides
     slidesToScroll: 1,
-    autoplay: true, // Enable autoplay
-    autoplaySpeed: 2000, // Adjust the speed (in milliseconds) for the auto-forward
+    responsive: [
+      {
+        breakpoint: 1280, // For large screens
+        settings: {
+          slidesToShow: 3,
+        },
+      },
+      {
+        breakpoint: 1024, // For medium screens
+        settings: {
+          slidesToShow: 2,
+        },
+      },
+      {
+        breakpoint: 640, // For small screens
+        settings: {
+          slidesToShow: 1,
+        },
+      },
+    ],
   };
+
+  if (!blogsData || blogsData.length === 0) {
+    return null;
+  }
   return (
     <div className="flex flex-col gap-y-4 my-16">
       <div className="mx-auto">
-        <MovingComponent
-          type="fadeOutToTop"
-          duration="500ms"
-          delay="0s"
-          direction="alternate"
-          timing="linear"
-          iteration="2"
-          fillMode="forwards"
-        >
-          <Animator animation={batch(FadeIn(), ZoomIn())}>
-            {" "}
-            <span className="text-4xl text-black font-bold">
-              {" "}
-              Featured Blogs
-            </span>
-          </Animator>
-        </MovingComponent>
+        <span className="text-4xl text-black font-bold">
+          Featured Blogs
+        </span>
       </div>
       <div className="flex justify-between mx-16 my-4">
         <span className="font-semibold text-2xl">Our Popular Blogs</span>
         <span className="font-semibold text-2xl text-red-500">View All</span>
       </div>
 
-      <Slider {...settings} className=" text-center text-white p-4">
-        <div className="">
-          <Medicine_Card />
-        </div>
-        <div className="">
-          <Medicine_Card />
-        </div>
-        <div className="">
-          <Medicine_Card />
-        </div>
+      <Slider {...settings} className="flex wrap">
+        {blogsData.filter((item) => item.modelCategoty === 1).map((item) => (
+          <Medicine_Card
+            medicine={item}
+            show={1}
+          />
+        ))}
+
+
       </Slider>
     </div>
   );

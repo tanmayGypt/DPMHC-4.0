@@ -1,102 +1,41 @@
 import { useEffect, useState } from "react";
-import Medicine_Card from "./Medicine_Card";
-// import Card from "./Medicine_Card";
-
-// Dummy data for medicines (you can replace it with data from API or database)
-const medicinesData = [
-  {
-    id: 1,
-    title: "Immuno Plus",
-    description:
-      "Immuno Plus tablets are a food supplement based on plant extracts, vitamins, and minerals for promoting the body’s natural defenses and immune system function.",
-    category: "Supplements",
-    dateAdded: "2023-09-14",
-    imageUrl: "https://dpmemorial.com/slide4.png",
-  },
-  {
-    id: 2,
-    title: "Vitamin C",
-    description:
-      "Vitamin C tablets help boost your immune system and maintain overall health.",
-    category: "Vitamins",
-    dateAdded: "2023-08-20",
-    imageUrl: "https://dpmemorial.com/slide4.png",
-  },
-  {
-    id: 1,
-    title: "Immuno Plus",
-    description:
-      "Immuno Plus tablets are a food supplement based on plant extracts, vitamins, and minerals for promoting the body’s natural defenses and immune system function.",
-    category: "Supplements",
-    dateAdded: "2023-09-14",
-    imageUrl: "https://dpmemorial.com/slide4.png",
-  },
-  {
-    id: 2,
-    title: "Vitamin C",
-    description:
-      "Vitamin C tablets help boost your immune system and maintain overall health.",
-    category: "Vitamins",
-    dateAdded: "2023-08-20",
-    imageUrl: "https://dpmemorial.com/slide4.png",
-  },
-  {
-    id: 1,
-    title: "Immuno Plus",
-    description:
-      "Immuno Plus tablets are a food supplement based on plant extracts, vitamins, and minerals for promoting the body’s natural defenses and immune system function.",
-    category: "Supplements",
-    dateAdded: "2023-09-14",
-    imageUrl: "https://dpmemorial.com/slide4.png",
-  },
-  {
-    id: 2,
-    title: "Vitamin C",
-    description:
-      "Vitamin C tablets help boost your immune system and maintain overall health.",
-    category: "Vitamins",
-    dateAdded: "2023-08-20",
-    imageUrl: "https://dpmemorial.com/slide4.png",
-  },
-  {
-    id: 1,
-    title: "Immuno Plus",
-    description:
-      "Immuno Plus tablets are a food supplement based on plant extracts, vitamins, and minerals for promoting the body’s natural defenses and immune system function.",
-    category: "Supplements",
-    dateAdded: "2023-09-14",
-    imageUrl: "https://dpmemorial.com/slide4.png",
-  },
-  {
-    id: 2,
-    title: "Vitamin C",
-    description:
-      "Vitamin C tablets help boost your immune system and maintain overall health.",
-    category: "Vitamins",
-    dateAdded: "2023-08-20",
-    imageUrl: "https://dpmemorial.com/slide4.png",
-  },
-  // Add more medicines as needed
-];
+import { getProducts } from "../../../api";
+import Medicine_Card from "../Home/Medicine_Card";
 
 export default function MedicineList() {
+  const [medicinesData, setMedicineData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
-  const [filteredMedicines, setfilteredMedicines] = useState(medicinesData);
-  // Function to filter medicines based on search and category
+  const [filteredMedicines, setFilteredMedicines] = useState([]);
 
+  // Fetch Medicines Data
+  useEffect(() => {
+    const fetch = async () => {
+      try {
+        const resp = await getProducts();
+        console.log(resp);
+        setMedicineData(resp);
+      } catch (error) {
+        console.error("Error fetching medicines data:", error);
+      }
+    };
+    fetch();
+  }, []);
+
+  // Filter Medicines based on search term and category
   useEffect(() => {
     const temp = medicinesData.filter((medicine) => {
-      return (
-        (medicine.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          medicine.description
-            .toLowerCase()
-            .includes(searchTerm.toLowerCase())) &&
-        (selectedCategory === "All" || medicine.category === selectedCategory)
-      );
+      const matchesSearch =
+        medicine?.title?.toLowerCase().includes(searchTerm?.toLowerCase()) ||
+        medicine?.description?.toLowerCase().includes(searchTerm?.toLowerCase());
+      const matchesCategory =
+        selectedCategory === "All" ||
+        medicine?.category.toLowerCase() === selectedCategory?.toLowerCase();
+
+      return matchesSearch && matchesCategory;
     });
-    setfilteredMedicines(temp);
-  }, [selectedCategory, searchTerm]);
+    setFilteredMedicines(temp);
+  }, [medicinesData, selectedCategory, searchTerm]);
 
   return (
     <div className="p-6">
@@ -122,10 +61,17 @@ export default function MedicineList() {
         </select>
       </div>
 
+      {/* Medicines Grid */}
       <div className="flex flex-wrap">
-        {filteredMedicines?.map((item) => (
-          <Medicine_Card key={item.id} medicine={item} />
-        ))}
+        {filteredMedicines.length > 0 ? (
+          filteredMedicines.map((item) => (
+            <Medicine_Card key={item.id} medicine={item} />
+          ))
+        ) : (
+          <p className="text-center w-full text-gray-500">
+            No medicines match your search or selected category.
+          </p>
+        )}
       </div>
     </div>
   );

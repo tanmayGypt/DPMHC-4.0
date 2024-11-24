@@ -1,46 +1,28 @@
 import { useState } from "react";
 
-export default function PrevApps() {
-  // Sample list of appointments
-  const [appointments, setAppointments] = useState([
-    {
-      id: 1,
-      name: "John Doe",
-      phone: "123-456-7890",
-      email: "john@example.com",
-      date: "2024-09-10",
-      time: "10:00",
-      message: "Checkup appointment",
-    },
-    {
-      id: 2,
-      name: "Jane Smith",
-      phone: "987-654-3210",
-      email: "jane@example.com",
-      date: "2024-09-12",
-      time: "12:30",
-      message: "Dental appointment",
-    },
-    // Add more appointments as needed
-  ]);
-
+export default function PrevApps({ Previous_Appointments }) {
   const [searchTerm, setSearchTerm] = useState("");
   const [filterDate, setFilterDate] = useState("");
 
-  // Filter appointments based on search term and selected date
-  const filteredAppointments = appointments.filter((appointment) => {
-    return (
-      appointment.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      appointment.phone.includes(searchTerm) ||
-      appointment.email.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+  // Function to filter appointments based on search term and date
+  const filteredAppointments = Previous_Appointments?.filter((appointment) => {
+    const matchesSearchTerm =
+      appointment?.name?.toLowerCase().includes(searchTerm?.toLowerCase()) ||
+      appointment?.phone?.includes(searchTerm) ||
+      appointment?.email?.toLowerCase()?.includes(searchTerm?.toLowerCase());
+
+    const matchesDate = filterDate
+      ? appointment.date === filterDate
+      : true;
+
+    return matchesSearchTerm && matchesDate;
   });
 
   return (
     <div className="flex flex-col items-center justify-center p-12">
       <div className="w-full max-w-4xl bg-white p-6 rounded-lg shadow-lg">
         <h2 className="text-2xl font-semibold mb-5 text-center">
-          Appointments
+          Your Appointments
         </h2>
 
         {/* Search Bar */}
@@ -74,28 +56,24 @@ export default function PrevApps() {
               </tr>
             </thead>
             <tbody>
-              {filteredAppointments
-                .filter((appointment) =>
-                  filterDate ? appointment.date === filterDate : true
-                )
-                .map((appointment) => (
-                  <tr key={appointment.id}>
-                    <td className="py-3 px-5 border-b">{appointment.name}</td>
-                    <td className="py-3 px-5 border-b">{appointment.phone}</td>
-                    <td className="py-3 px-5 border-b">{appointment.email}</td>
-                    <td className="py-3 px-5 border-b">{appointment.date}</td>
-                    <td className="py-3 px-5 border-b">{appointment.time}</td>
-                    <td className="py-3 px-5 border-b">
-                      {appointment.message}
-                    </td>
-                  </tr>
-                ))}
+              {filteredAppointments?.map((appointment) => (
+                <tr key={appointment.id}>
+                  <td className="py-3 px-5 border-b">{appointment.name ? appointment.name : "Not Mensioned"}</td>
+                  <td className="py-3 px-5 border-b">{appointment.phone ? appointment.phone : "Not Mensioned"}</td>
+                  <td className="py-3 px-5 border-b">{appointment.email ? appointment.email : "Not Mensioned"}</td>
+                  <td className="py-3 px-5 border-b">{appointment.date ? appointment.date : "Not Mensioned"}</td>
+                  <td className="py-3 px-5 border-b">{appointment.time ? appointment.time : "Not Mensioned"}</td>
+                  <td className="py-3 px-5 border-b">
+                    {appointment.message ? appointment.message.substr(0, 30) : "Not Mensioned"}
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
 
         {/* No Appointments Message */}
-        {filteredAppointments.length === 0 && (
+        {filteredAppointments?.length === 0 && (
           <p className="mt-5 text-center text-gray-600">
             No appointments found.
           </p>

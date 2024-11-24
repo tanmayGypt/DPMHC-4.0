@@ -12,7 +12,7 @@ const VideoCard = ({ video }) => {
           <p className="text-gray-600 text-sm mb-2">{video.description}</p>
           <div className="text-gray-500 text-xs mb-4">
             <p>Views: {video.views}</p>
-            <p>Date: {new Date(video.date).toLocaleDateString()}</p>
+            <p>Date: {video.date}</p>
           </div>
           <a
             href={video.url}

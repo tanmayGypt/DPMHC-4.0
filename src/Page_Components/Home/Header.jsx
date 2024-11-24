@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
 import Alert from "./Alert";
 
-export default function Header() {
+export default function Header({ notificationData }) {
   return (
     <>
-      <Alert />
+      <Alert notificationData={notificationData} />
       <div className="font-nunito">
         <div className="bg-cover bg-center bg-[url('https://i.pinimg.com/originals/5e/6b/1c/5e6b1c6a633aeeaa013312b69c89ab11.jpg')]">
           <div className="flex flex-col items-center justify-center min-h-screen text-center bg-[rgba(21,21,21,0.7)] p-10">
