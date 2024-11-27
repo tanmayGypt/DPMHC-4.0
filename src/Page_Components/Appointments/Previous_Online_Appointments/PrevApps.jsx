@@ -20,7 +20,7 @@ export default function PrevApps({ Previous_Appointments }) {
 
   return (
     <div className="flex flex-col items-center justify-center p-12">
-      <div className="w-full max-w-4xl bg-white p-6 rounded-lg shadow-lg">
+      <div className="w-full max-w-6xl max-sm:w-screen bg-white p-6 rounded-lg shadow-lg">
         <h2 className="text-2xl font-semibold mb-5 text-center">
           Your Appointments
         </h2>
@@ -60,7 +60,7 @@ export default function PrevApps({ Previous_Appointments }) {
                 <tr key={appointment.id}>
                   <td className="py-3 px-5 border-b">{appointment.name ? appointment.name : "Not Mensioned"}</td>
                   <td className="py-3 px-5 border-b">{appointment.phone ? appointment.phone : "Not Mensioned"}</td>
-                  <td className="py-3 px-5 border-b">{appointment.email ? appointment.email : "Not Mensioned"}</td>
+                  <td className="py-3 px-5 border-b">{appointment.emailAddress ? appointment.emailAddress : "Not Mensioned"}</td>
                   <td className="py-3 px-5 border-b">{appointment.date ? appointment.date : "Not Mensioned"}</td>
                   <td className="py-3 px-5 border-b">{appointment.time ? appointment.time : "Not Mensioned"}</td>
                   <td className="py-3 px-5 border-b">

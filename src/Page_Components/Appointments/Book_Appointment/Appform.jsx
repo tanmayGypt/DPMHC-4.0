@@ -1,9 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { createAppointment } from "../../../../api";
 import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie"; // Import the js-cookie library
+import { uploadToCloudinary } from "../../../ImageUpload";
 
 export default function Appform() {
+  const existingUser = Cookies.get("user");
+  const [file, setFile] = useState(null);
+  const [uploading, setUploading] = useState(false);
+  const [uploadedUrl, setUploadedUrl] = useState("");
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -12,7 +18,9 @@ export default function Appform() {
     time: "",
     message: "",
     documentUrl: null,
+    user: existingUser
   });
+
   const navigate = useNavigate();
 
   const [errors, setErrors] = useState({});
@@ -23,9 +31,7 @@ export default function Appform() {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleFileChange = (e) => {
-    setFormData({ ...formData, documentUrl: e.target.files[0] });
-  };
+
 
   const cleanPhoneNumber = (phone) => {
     return phone.replace(/\D/g, "");
@@ -73,7 +79,9 @@ export default function Appform() {
     e.preventDefault();
     if (validate()) {
       setLoading(true);
+      FormData.user = existingUser;
       try {
+        const imageUrl = await uploadToCloudinary([file]);
         const appointmentData = {
           name: formData.name,
           phone: cleanPhoneNumber(formData.phone),
@@ -81,7 +89,8 @@ export default function Appform() {
           date: formData.date,
           time: formData.time,
           message: formData.message,
-          documentUrl: formData.documentUrl,
+          documentUrl: imageUrl[0],
+          userId: existingUser
         };
         const response = await createAppointment(appointmentData);
         alert("Success , Your Appointment has been booked Successfully");
@@ -231,11 +240,13 @@ export default function Appform() {
               </label>
               <input
                 type="file"
-                onChange={handleFileChange}
+                onChange={(e) => setFile(e.target.files[0])}
                 className="block w-full text-gray-900"
               />
+              {uploading && (
+                <p className="text-red-500">uploading file...</p>
+              )}
             </div>
-
             <div>
               <button className="w-full text-center font-semibold text-lg bg-indigo-600 text-white py-4 rounded-lg hover:bg-indigo-700 focus:ring focus:ring-indigo-200">
                 Book Appointment

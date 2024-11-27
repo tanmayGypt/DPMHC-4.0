@@ -1,29 +1,29 @@
 import { useEffect, useState } from "react";
 import Medicine_Card from "../Home/Medicine_Card";
-import { getBlogs } from "../../../api";
+import { getBlogs, getCategoties } from "../../../api";
 
 export default function BlogList() {
   const [searchTerm, setSearchTerm] = useState("");
-  const [blogsData, setBlogsData] = useState([]); // Store fetched blogs
+  const [blogsData, setBlogsData] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [filteredBlogs, setfilteredBlogs] = useState([]);
-
-  // Fetch blogs only once when the component mounts
+  const [categories, setCategories] = useState([]);
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const response = await getBlogs(); // Fetch data from API
-        console.log("Fetched Blogs:", response);
-        setBlogsData(response); // Save fetched blogs
-        setfilteredBlogs(response); // Initialize filtered blogs
+        const response = await getBlogs();
+        const resp2 = await getCategoties();
+        setCategories(resp2);
+        setBlogsData(response);
+        setfilteredBlogs(response);
       } catch (error) {
         console.error("Error fetching blogs:", error);
       }
     };
     fetchBlogs();
-  }, []); // Empty dependency array ensures it runs only once
+  }, []);
 
-  // Filter blogs when searchTerm or selectedCategory changes
+
   useEffect(() => {
     const temp = blogsData.filter((medicine) => {
       return (
@@ -55,16 +55,14 @@ export default function BlogList() {
           onChange={(e) => setSelectedCategory(e.target.value)}
         >
           <option value="All">All Categories</option>
-          <option value="Supplements">Supplements</option>
-          <option value="Vitamins">Vitamins</option>
-          {/* Add more categories as needed */}
+          {categories?.filter((item) => item.subCategory === "Blog").map((item) => <option value={item.categoryName}>{item.categoryName}</option>)}
+
         </select>
       </div>
 
-      {/* Blog Cards Section */}
-      <div className="flex flex-wrap justify-start gap-4">
+      <div className="flex flex-wrap justify-start gap-4"> {/* Ensure cards are spread out */}
         {filteredBlogs && filteredBlogs.length > 0 ? (
-          filteredBlogs.map((item) => (
+          filteredBlogs.filter((item) => item.published && item.modelCategoty === 0).map((item) => (
             <Medicine_Card
               key={item.id}
               medicine={item}

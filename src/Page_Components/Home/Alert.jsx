@@ -14,7 +14,7 @@ const Ticker = ({ notificationData }) => {
   return (
     <div className="ticker-wrapper bg-red-500">
       <div className="ticker text-black">
-        {notificationData?.map((notification, index) => (
+        {notificationData?.filter((item) => item.showOnWeb && item.active).map((notification, index) => (
           <div
             key={index}
             className="ticker-item flex-none px-8 text-black font-bold"

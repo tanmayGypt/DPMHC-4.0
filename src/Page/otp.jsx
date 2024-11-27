@@ -10,7 +10,12 @@ const OTPVerificationScreen = () => {
     const location = useLocation();
     const userData = location.state;
     const navigate = useNavigate();
-    console.log(userData)
+    if (!userData) {
+        navigate("/")
+        return;
+    }
+
+
     const generate = async () => {
         await generateOTP({ name: userData.fullName, email: userData.email });
     }

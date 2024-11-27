@@ -12,30 +12,30 @@ import {
 } from "semantic-ui-react";
 import { createComment } from "../../../api";
 import { useParams } from "react-router-dom";
+import Cookies from "js-cookie";
 
-const CommentSection = ({ comments }) => {
+const CommentSection = ({ comments, setReload, reload }) => {
   const { id } = useParams(); // Retrieve the targetBlogId from the URL
   const [comment, setComment] = useState("");
+  const user = Cookies.get("user");
 
-  // Debugging: Check if id is correctly retrieved
-  console.log("Target Blog ID:", id);
-
-  const submitComment = async () => {
+  const submitComment = async (e) => {
     if (!comment.trim()) {
       alert("Comment cannot be empty!");
       return;
     }
 
+
     try {
       const resp = await createComment({
-        user: "tanmay6311@gmail.com", // Replace with dynamic user data if needed
+        user: user,
         comment,
-        targetBlogId: id, // Use the retrieved id
+        targetBlogId: id,
       });
 
-      console.log("Comment submission response: ", resp);
-      setComment(null)
-      alert("Comment added successfully!");
+      // Trigger reload to refetch the comments in the parent component (MedicoBlogs)
+      setReload(!reload);
+      setComment("");  // Reset the comment input
     } catch (error) {
       console.error("Failed to add comment:", error);
       alert("Failed to add comment. Please try again.");
@@ -54,7 +54,7 @@ const CommentSection = ({ comments }) => {
             <Comment key={index}>
               <CommentAvatar src="https://react.semantic-ui.com/images/avatar/small/matt.jpg" />
               <CommentContent>
-                <Comment.Author as="a">{commentData?.user?.fullName ? commentData?.user?.fullName : "anonymous"}</Comment.Author>
+                <Comment.Author as="a">{commentData?.user?.fullName || "anonymous"}</Comment.Author>
                 <CommentMetadata>
                   <div>
                     {commentData?.dateCreated
@@ -78,6 +78,7 @@ const CommentSection = ({ comments }) => {
           />
           <Button
             onClick={submitComment}
+
             content="Add a Comment"
             labelPosition="left"
             icon="edit"

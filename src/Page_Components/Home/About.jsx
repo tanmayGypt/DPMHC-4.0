@@ -25,7 +25,7 @@ export default function About() {
               {/* Image Section with Animation */}
               <div className="w-full px-4 mb-10 lg:w-1/2 lg:mb-0">
                 <img
-                  src="https://dpmemorial.com/photo.jpeg"
+                  src="/photo.jpeg"
                   alt=""
                   className="relative z-40 object-cover w-full h-96 rounded-3xl"
                 />
@@ -37,15 +37,10 @@ export default function About() {
                   About <span className="text-blue-500">Dr. Amit Gupta</span>
                 </h2>
                 <p className="mb-10 text-base leading-7">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  Ut enim ad minim veniam Lorem ipsum dolor sit amet,
-                  consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                  ut labore et dolore magna aliqua. Ut enim ad minim veniamLorem
-                  ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                  eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                  enim ad minim veniamLorem ipsum dolor sit amet, consectetur
-                  adipiscing elit, sed do eiusmod tempor
+                  Dr. Amit Gupta is a renowned homeopathic doctor with a passion for holistic
+                  healing. With years of experience and a commitment to patient care, he has helped
+                  countless individuals lead healthier lives. At our clinic, we strive to blend
+                  modern medical practices with the personalized touch of homeopathy.
                 </p>
                 <Link
                   to="/Appointment"

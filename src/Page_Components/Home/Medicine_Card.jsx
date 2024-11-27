@@ -4,9 +4,9 @@ import { Link } from "react-router-dom";
 export default function Medicine_Card({ medicine, buttontext }) {
 
   return (
-    <div className="max-w-sm mx-auto p-4 transition-transform transform hover:scale-105 duration-300 ease-in-out">
+    <div className="w-3/4 sm:w-80 max-sm:w-screen md:w-80 lg:w-80 xl:w-80 p-4 transition-transform transform hover:scale-105 duration-300 ease-in-out">
       <div className="bg-white shadow-md rounded-lg overflow-hidden">
-        <Link to={`/product_description/${medicine?.id}`} className="block">
+        <Link to={`/Content-Body/${medicine?.id}`} className="block">
           <img
             className="w-full h-48 object-cover hover:scale-110 transition-transform duration-300"
             src={
@@ -15,7 +15,6 @@ export default function Medicine_Card({ medicine, buttontext }) {
             }
             alt={medicine?.title || "Default Image"}
           />
-
 
           {/* Text Section */}
           <div className="p-4">
@@ -29,17 +28,13 @@ export default function Medicine_Card({ medicine, buttontext }) {
               {medicine?.description || "Not Available"}
             </p>
 
-
             <p className="mt-2 text-sm text-gray-700">
               <strong>Author:</strong> {medicine.author ? medicine.author : "Not Available"}
             </p>
 
-
-
             <p className="mt-1 text-sm text-gray-700">
               <strong>Category:</strong> {medicine?.category ? medicine.category : "Not Available"}
             </p>
-
           </div>
         </Link>
 

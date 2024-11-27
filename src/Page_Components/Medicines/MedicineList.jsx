@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getProducts } from "../../../api";
+import { getCategoties, getProducts } from "../../../api";
 import Medicine_Card from "../Home/Medicine_Card";
 
 export default function MedicineList() {
@@ -7,13 +7,14 @@ export default function MedicineList() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [filteredMedicines, setFilteredMedicines] = useState([]);
-
+  const [categories, setCategories] = useState([]);
   // Fetch Medicines Data
   useEffect(() => {
     const fetch = async () => {
       try {
         const resp = await getProducts();
-        console.log(resp);
+        const resp2 = await getCategoties();
+        setCategories(resp2);
         setMedicineData(resp);
       } catch (error) {
         console.error("Error fetching medicines data:", error);
@@ -55,16 +56,15 @@ export default function MedicineList() {
           onChange={(e) => setSelectedCategory(e.target.value)}
         >
           <option value="All">All Categories</option>
-          <option value="Supplements">Supplements</option>
-          <option value="Vitamins">Vitamins</option>
+          {categories?.filter((item) => item.subCategory === "Medicine").map((item) => <option value={item.categoryName}>{item.categoryName}</option>)}
           {/* Add more categories as needed */}
         </select>
       </div>
 
       {/* Medicines Grid */}
       <div className="flex flex-wrap">
-        {filteredMedicines.length > 0 ? (
-          filteredMedicines.map((item) => (
+        {filteredMedicines?.length > 0 ? (
+          filteredMedicines?.filter((item) => item.published && item.modelCategoty === 1).map((item) => (
             <Medicine_Card key={item.id} medicine={item} />
           ))
         ) : (

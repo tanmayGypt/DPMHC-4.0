@@ -6,6 +6,7 @@ const ChangePassScreen = () => {
     const location = useLocation();
     const { enteredOtp, email } = location.state || {};
     const navigate = useNavigate();
+    if (!enteredOtp && !email) navigate("/")
     const [newPassword, setNewPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [isLoading, setIsLoading] = useState(false);

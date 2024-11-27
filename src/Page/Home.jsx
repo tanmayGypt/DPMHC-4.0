@@ -36,19 +36,10 @@ function Home() {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-  useEffect(() => {
-    async function fetch() {
-      let response = await axios.get("https://dpmhc-backend-1.onrender.com/Blogs");
-      console.log(response.data);
-      setA(response.data);
-    }
-    fetch();
-  }, []);
   return (
     <div>
 
       <ScrollContainer>
-
         <Header notificationData={notificationData} />
         <About />
         <Medicines blogsData={blogsData} />

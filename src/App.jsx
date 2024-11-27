@@ -3,7 +3,7 @@ import Footer from "./Common_Components/Footer";
 import Navbar from "./Common_Components/Navbar";
 import Appointment from "./Page/Appointment";
 import Home from "./Page/Home";
-import { HashRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation, Link } from "react-router-dom";
 import Previous_Appointments from "./Page/Previous_Appointments";
 import Medicines from "./Page/Medicines";
 import { useEffect } from "react";
@@ -20,13 +20,44 @@ import LoginScreen from "./Page/Login";
 import ForgotPasswordEmailScreen from "./Page/EnterEmail";
 import ChangePassScreen from "./Page/ChangePass";
 import ForgoPassOTP from "./Page/ForgotPassOTP";
-// import Videos from "./Page/Videos";
-// import YoutubeVideos from "./Page/YoutubeVideos";
-// import YouTubePlayer from "./Page_Components/Videos/YouTubePlayer";
+import PrivateRoute from "./PrivateRoute";
+import Notifications from "./Page/Notifications";
+import FeedbackPage from "./Page/Feedback";
+import NotFoundPage from "./Page/NotFound";
+import ProfilePage from "./Page/Profile";
+function DynamicTitle() {
+  const location = useLocation();
 
+  useEffect(() => {
+    // Map route paths to page titles
+    const titleMap = {
+      "/": "Home - Welcome",
+      "/Appointment": "Book an Appointment",
+      "/Appointment/prev-apps": "Your Previous Appointments",
+      "/feedback": "Give Your Feedback",
+      "/Notifications": "Your Notifications",
+      "/Medicines": "Medicines",
+      "/Videos": "Videos",
+      "/About": "About Us",
+      "/Reviews": "Reviews",
+      "/Gallary": "Gallery",
+      "/Blog-List": "Blogs",
+      "/signup": "Sign Up",
+      "/Login": "Login",
+      "/forgot-password": "Forgot Password",
+      "/reset-password": "Reset Password",
+      "*": "404 - Page Not Found",
+    };
 
+    // Set document title based on current path
+    document.title = titleMap[location.pathname] || "Welcome";
+  }, [location.pathname]);
+
+  return null; // This component doesn't render anything
+}
 
 function Videos() {
+
   useEffect(() => {
     // Dynamically load the script
     const script = document.createElement("script");
@@ -56,32 +87,48 @@ function App() {
 
   return (
     <>
-      <HashRouter>
-        <Navbar />
+      <BrowserRouter>
+        <DynamicTitle />
+        {<Navbar />}
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/Appointment" element={<Appointment />} />
+          <Route path="/Appointment" element={<PrivateRoute><Appointment /></PrivateRoute>} />
           <Route
             path="/Appointment/prev-apps"
-            element={<Previous_Appointments />}
+            element={<PrivateRoute><Previous_Appointments /></PrivateRoute>}
+
           />
+          <Route
+            path="/profile"
+            element={<PrivateRoute><ProfilePage /></PrivateRoute>}
+
+          />
+          <Route path="/feedback" element={<PrivateRoute><FeedbackPage /></PrivateRoute>} />
+          <Route path="/Notifications" element={<Notifications />} />
+
           <Route path="/Medicines" element={<Medicines />} />
           <Route path="/Videos" element={<Videos />} />
           <Route path="/About" element={<About />} />
           <Route path="/Reviews" element={<Review />} />
           <Route path="/Gallary" element={<Gallary />} />
           <Route path="/Blog-List" element={<Blogs />} />
-          <Route path="/Content-Body/:id" element={<MedicoBlogs />} />
+          <Route path="/Content-Body/:id" element={<PrivateRoute><MedicoBlogs /></PrivateRoute>} />
           <Route path="/signup" element={<SignupScreen />} />
-
           <Route path="/otp/:email/:fullName" element={<OTPVerificationScreen />} />
           <Route path="/Login" element={<LoginScreen />} />
           <Route path="/forgot-password" element={<ForgotPasswordEmailScreen />} />
           <Route path="/forgot-password/Otp" element={<ForgoPassOTP />} />
           <Route path="/reset-password" element={<ChangePassScreen />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
-        <Footer />
-      </HashRouter>
+        {<Footer />}
+        <Link
+          to="/feedback"
+          className="fixed bottom-10 right-10 bg-blue-600 text-white text-sm font-semibold py-2 px-4 rounded-full shadow-lg hover:bg-blue-700 transition-transform transform hover:scale-105 "
+        >
+          Feedback
+        </Link>
+      </BrowserRouter>
     </>
   );
 }

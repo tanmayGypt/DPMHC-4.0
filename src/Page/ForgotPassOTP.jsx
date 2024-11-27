@@ -10,7 +10,10 @@ const ForgoPassOTP = () => {
     const [timer, setTimer] = useState(30);
     const [isResendEnabled, setIsResendEnabled] = useState(false);
     const refs = useRef([]);
-
+    if (!email) {
+        navigate("/");
+        return;
+    }
     console.log(email)
     const generate = async () => {
         await generateOTP({ name: "User", email: email });
@@ -81,7 +84,7 @@ const ForgoPassOTP = () => {
     };
 
     return (
-        <div className="flex flex-col items-center bg-gray-100 min-h-screen px-4 py-8">
+        <div className="flex flex-col items-center justify-center bg-gray-100 h-screen px-4 py-8 justify-start my-auto">
             <h1 className="text-2xl font-bold text-teal-600 mb-2">Verify OTP</h1>
             <p className="text-gray-600 text-center mb-6">
                 Enter the 6-digit OTP sent to your email.

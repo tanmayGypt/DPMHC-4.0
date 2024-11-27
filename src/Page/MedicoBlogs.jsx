@@ -9,29 +9,25 @@ function MedicoBlogs() {
   const { id } = useParams();
   const [data, setData] = useState(null);
   const [comments, setComments] = useState(null);
+  const [reload, setReload] = useState(false); // To trigger comment refetch
 
-  useEffect(() => {
-    const fetchBlog = async () => {
-      const resp = await getBlogById(id);
-      setData(resp);  // Set the blog data
-    };
+  // Fetching blog data and comments
+  const fetchBlogAndComments = async () => {
+    const resp = await getBlogById(id);
+    setData(resp);
 
-    fetchBlog();
-
-    window.scrollTo(0, 0);
-  }, [id]);  // Dependency array should include 'id' so the effect re-runs when 'id' changes
-
-  useEffect(() => {
-    if (data?.id) {
-      // Fetch comments only after 'data' has been set
-      const fetchComments = async () => {
-        const resp = await getCommentsForPost(data?.id);
-        setComments(resp);  // Set the fetched comments
-      };
-
-      fetchComments();
+    // Fetch comments after blog data is set
+    if (resp?.id) {
+      const commentsResp = await getCommentsForPost(resp.id);
+      setComments(commentsResp);
     }
-  }, [data]);  // This effect depends on 'data', so it will run when 'data' is set
+  };
+
+  // Trigger fetchBlogAndComments on component mount or when 'id' changes
+  useEffect(() => {
+    fetchBlogAndComments();
+
+  }, [id, reload]);  // Dependency array includes 'id' and 'reload'
 
   const createMarkup = () => {
     return { __html: DOMPurify.sanitize(data?.body) };
@@ -45,9 +41,9 @@ function MedicoBlogs() {
 
       <div className="flex flex-col items-center gap-y-8">
         {/* Image Slider */}
-        <div className="w-full">
-          {data?.images ? (
-            <div className="relative w-full pb-[60.64%]"> {/* Aspect ratio: 996 / 604 */}
+        {data?.images?.length > 0 ? (
+          <div className="w-full">
+            <div className="relative w-full pb-[60.64%]">
               <div className="absolute top-0 left-0 w-full h-full">
                 <SimpleImageSlider
                   width="100%"
@@ -58,8 +54,8 @@ function MedicoBlogs() {
                 />
               </div>
             </div>
-          ) : null}
-        </div>
+          </div>
+        ) : null}
 
         {/* Blog Description */}
         <h2 className="text-center font-semibold text-2xl md:text-3xl my-5">
@@ -70,7 +66,7 @@ function MedicoBlogs() {
         <div className="mx-auto text-base md:text-lg leading-relaxed" dangerouslySetInnerHTML={createMarkup()} />
 
         {/* Comment Section */}
-        <CommentSection comments={comments || []} /> {/* Render comments (or an empty array if null) */}
+        <CommentSection comments={comments || []} reload={reload} setReload={setReload} />
       </div>
     </div>
   );

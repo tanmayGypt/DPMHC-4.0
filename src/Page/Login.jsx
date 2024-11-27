@@ -1,19 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../../api";
-
+import Cookies from "js-cookie";
 const LoginScreen = () => {
     const navigate = useNavigate();
-
+    const token = Cookies.get("jwt");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         const checkUserLoggedIn = async () => {
-            const userToken = localStorage.getItem("userToken");
-            if (userToken) {
-                navigate("/main");
+            if (token) {
+                navigate("/");
             }
         };
         checkUserLoggedIn();
@@ -41,10 +40,9 @@ const LoginScreen = () => {
             const loginData = { email, password };
             const response = await loginUser(loginData);
             console.log("Login successful:", response);
-
-            // Save token to localStorage
-            localStorage.setItem("userToken", response.token);
-            navigate("/main");
+            if (response) {
+                navigate("/")
+            }
         } catch (error) {
             alert("Login Failed: Invalid email or password.");
             console.error("Login error:", error);
