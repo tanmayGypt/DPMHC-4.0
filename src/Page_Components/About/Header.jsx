@@ -26,7 +26,7 @@ export default function Header() {
                 (Beside State Bank Of, Near Gopal Jee Bhaturewale)
               </p>
               <h3 className="text-white text-lg font-semibold">Phone</h3>
-              <p className="text-white mb-6">7654602444, 9716749169</p>
+              <p className="text-white mb-6">9716749169</p>
               <div className="max-w-md w-full flex justify-center">
                 <a href="/appointment" className="inline-block">
                   <button className="w-full bg-[#f49892] hover:bg-[#f49832] text-white font-bold py-4 px-6 rounded-lg text-lg mx-auto">
