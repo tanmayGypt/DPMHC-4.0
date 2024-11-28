@@ -13,8 +13,7 @@ function About() {
         <div className="text-center mb-10">
           <h1 className="text-4xl font-semibold text-gray-800 mb-4">ABOUT US</h1>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
+            At DP Memorial Homoeopathy Clinic, we are dedicated to providing holistic healthcare through the science of homoeopathy. Our clinic is built on the principles of healing the body and mind naturally, without the use of harsh chemicals or side effects. We focus on treating the root cause of ailments rather than just the symptoms, helping our patients achieve long-term health and wellness.
           </p>
         </div>
 
@@ -45,7 +44,23 @@ function About() {
               {/* Address Section */}
               <div className="mb-6">
                 <h3 className="text-lg font-medium text-gray-800 mb-2">Clinic Address:</h3>
-                <p className="text-gray-600">123 Main Street, City Name, State, ZIP Code</p>
+                <p className="text-gray-600">
+                  F 22/102, Shop Number 5, 6, Rohini Sector 3, Delhi - 110085
+                  <br />
+                  (Beside State Bank Of, Near Gopal Jee Bhaturewale)
+                </p>
+              </div>
+
+              {/* Working Hours Section */}
+              <div className="mb-6">
+                <h3 className="text-lg font-medium text-gray-800 mb-2">Working Hours:</h3>
+                <p className="text-gray-600">Mon-Sat: 12:00 pm - 3:00 pm || 6:00–9:00 pm</p>
+              </div>
+
+              {/* Phone Section */}
+              <div className="mb-6">
+                <h3 className="text-lg font-medium text-gray-800 mb-2">Phone:</h3>
+                <p className="text-gray-600">9716749169</p>
               </div>
 
               {/* Social Media Icons */}

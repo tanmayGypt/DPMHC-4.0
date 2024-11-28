@@ -25,8 +25,15 @@ function Gallary() {
     <div className="w-full max-w-screen-lg mx-auto mb-20 px-4">
       <div>
         <div className="font-bold text-center text-4xl mt-16 mb-20 text-indigo-600">
-          Gallery Section
+          Our Gallery
         </div>
+      </div>
+
+      {/* Gallery Intro */}
+      <div className="text-center mb-12 text-lg text-gray-600">
+        <p>
+          Explore our gallery to get a glimpse of the holistic care and healing environment at DP Memorial Homoeopathy Clinic. Our clinic is equipped with state-of-the-art facilities and a dedicated team, ensuring that every patient receives personalized treatment in a calm and supportive atmosphere. Below you will find images that showcase our clinic, patient experiences, and some of our community events.
+        </p>
       </div>
 
       {/* Gallery */}

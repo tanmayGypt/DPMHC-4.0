@@ -12,11 +12,7 @@ function Medicines() {
           Our Popular Medicines
         </h1>
         <div className="w-9/12 text-start mx-auto">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi
-          asperiores, inventore mollitia, ipsam deserunt quasi assumenda eveniet
-          unde debitis at similique vel totam quisquam saepe sunt qui. Quis,
-          sapiente fuga, laudantium iure itaque repudiandae voluptatibus, qui
-          officiis ex omnis minima at fugit tenetur facere cum.
+          At DP Memorial Homoeopathy Clinic, we offer a wide range of popular homeopathic medicines that have been trusted for their effectiveness in treating various health conditions. From Arnica Montana, known for its ability to heal injuries and bruises, to Nux Vomica, which helps with stress-related digestive issues, our medicines are carefully selected based on individual patient needs. Remedies like Calcarea Carbonica support overall wellness and vitality, while Rhus Toxicodendron is a go-to treatment for joint pain and stiffness. Whether you are dealing with skin conditions, fatigue, or nerve pain, our homeopathic treatments aim to address the root causes of your ailments, offering a natural and holistic approach to healing. We believe in using medicines that promote long-term health, and our experienced professionals are always ready to guide you in finding the most suitable remedy for your specific needs.
         </div>
       </div>
 

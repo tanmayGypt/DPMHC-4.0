@@ -10,11 +10,7 @@ function Blogs() {
       <div className="flex flex-col gap-y-8">
         <h1 className="text-center font-bold text-4xl">Our Blog Collection</h1>
         <div className="w-9/12 text-start mx-auto">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi
-          asperiores, inventore mollitia, ipsam deserunt quasi assumenda eveniet
-          unde debitis at similique vel totam quisquam saepe sunt qui. Quis,
-          sapiente fuga, laudantium iure itaque repudiandae voluptatibus, qui
-          officiis ex omnis minima at fugit tenetur facere cum.
+          Welcome to our blog collection! Here, we share valuable insights, tips, and articles to help you understand the power of homeopathy, natural healing, and overall well-being. Whether you're new to homeopathy or a long-time patient, our blogs offer a wealth of knowledge to support your health journey.
         </div>
       </div>
 

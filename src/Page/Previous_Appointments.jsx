@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import PrevApps from "../Page_Components/Appointments/Previous_Online_Appointments/PrevApps";
-import { getAppointmentById, getAppointments, getAppointmentsByUserId } from "../../api";
+import { getAppointmentsByUserId } from "../../api";
 import Cookies from "js-cookie";
 function Previous_Appointments() {
   const [data, setData] = useState([]);
