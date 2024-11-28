@@ -10,11 +10,27 @@ const api = axios.create({
   },
 });
 
+// Define the routes that do not require authentication
+const noAuthRoutes = [
+  '/auth/register',
+  '/auth/getOtp',
+  '/auth/verifyOtp',
+  '/auth/resetPassword',
+  '/auth/userByEmail',
+  '/Blogs',
+  '/Gallary',
+  '/category',
+  '/alerts',
+];
+
 api.interceptors.request.use(
   (config) => {
-    const token = Cookies.get("jwt");
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
+    // Only add the token if the route requires authentication
+    if (!noAuthRoutes.some(route => config.url.includes(route))) {
+      const token = Cookies.get("jwt");
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+      }
     }
     return config;
   },
@@ -126,16 +142,6 @@ export const createAlert = async (alertData) => {
   }
 };
 
-// Appointment APIs
-export const getAppointments = async () => {
-  try {
-    const response = await api.get('/Appointment');
-    return response.data;
-  } catch (error) {
-    console.error('Error fetching appointments:', error);
-    throw error;
-  }
-};
 
 export const createAppointment = async (appointmentData) => {
   try {
@@ -147,15 +153,6 @@ export const createAppointment = async (appointmentData) => {
   }
 };
 
-export const getAppointmentById = async (id) => {
-  try {
-    const response = await api.get(`/Appointment/id/${id}`);
-    return response.data;
-  } catch (error) {
-    console.error(`Error fetching appointment by ID (${id}):`, error);
-    throw error;
-  }
-};
 
 export const getBlogs = async () => {
   try {
@@ -284,7 +281,7 @@ export const createComment = async (commentData) => {
 
 export const generateOTP = async ({ name, email }) => {
   try {
-    const url = `https://dpmhc-backend-24id.onrender.com/auth/getOtp?name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}`;
+    const url = `${API_BASE_URL}/auth/getOtp?name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}`;
     const response = await api.get(url);
     return response;
   } catch (error) {
@@ -296,7 +293,7 @@ export const generateOTP = async ({ name, email }) => {
 
 export const verifyOtp = async ({ otp, email }) => {
   try {
-    const url = `https://dpmhc-backend-24id.onrender.com/auth/verifyOtp?otp=${otp}&email=${email}`;
+    const url = `${API_BASE_URL}/auth/verifyOtp?otp=${otp}&email=${email}`;
 
     const response = await api.get(url);
 
@@ -310,7 +307,7 @@ export const verifyOtp = async ({ otp, email }) => {
 export const resetPassword = async ({ otp, email, password }) => {
   console.log(otp, email, password)
   try {
-    const url = `https://dpmhc-backend-24id.onrender.com/auth/resetPassword?otp=${otp}&email=${email}&password=${password}`;
+    const url = `${API_BASE_URL}/auth/resetPassword?otp=${otp}&email=${email}&password=${password}`;
 
     const response = await api.get(url);
 
