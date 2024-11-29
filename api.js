@@ -4,10 +4,7 @@ import Cookies from "js-cookie";
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 const token = Cookies.get("jwt");
 const api = axios.create({
-  baseURL: API_BASE_URL,
-  headers: {
-    "Content-Type": "application/json",
-  },
+  baseURL: API_BASE_URL
 });
 
 // Define the routes that do not require authentication
@@ -15,6 +12,7 @@ const noAuthRoutes = [
   '/auth/register',
   '/auth/getOtp',
   '/auth/verifyOtp',
+  "/auth/login",
   '/auth/resetPassword',
   '/auth/userByEmail',
   '/Blogs',
@@ -89,12 +87,7 @@ export const loginUser = async (loginData) => {
 
 export const getAlerts = async () => {
   try {
-    const response = await api.get('/alerts', {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`
-      },
-    });
+    const response = await api.get('/alerts');
     return response.data;
   } catch (error) {
     console.error('Error fetching alerts:', error);
@@ -104,12 +97,7 @@ export const getAlerts = async () => {
 
 export const getAppointmentsByUserId = async (userId) => {
   try {
-    const response = await api.get(`/Appointment/userId/${userId}`, {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`
-      },
-    });
+    const response = await api.get(`/Appointment/userId/${userId}`);
     return response.data;
   } catch (error) {
     console.error('Error fetching Appointments:', error);
@@ -118,12 +106,8 @@ export const getAppointmentsByUserId = async (userId) => {
 };
 export const getProducts = async () => {
   try {
-    const response = await api.get('/Blogs', {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`
-      },
-    });
+    const response = await api.get('/Blogs',
+    );
     return response.data;
   } catch (error) {
     console.error('Error fetching alerts:', error);
@@ -166,11 +150,7 @@ export const getBlogs = async () => {
 
 export const uploadImages = async (formData) => {
   try {
-    const response = await api.post(`/api/upload/images`, formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      }
-    });
+    const response = await api.post(`/api/upload/images`, formData);
     console.log(response)
     return response.data;
   } catch (error) {
