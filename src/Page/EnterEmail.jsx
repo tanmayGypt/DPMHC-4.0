@@ -33,20 +33,21 @@ const ForgotPasswordEmailScreen = () => {
     };
 
     return (
-        <div style={styles.container}>
-            <h1 style={styles.header}>Forgot Password</h1>
-            <p style={styles.subHeader}>Enter your email address to receive the OTP.</p>
+        <div className="flex flex-col justify-center items-center px-4 py-6 bg-gray-50 min-h-screen">
+            <h1 className="text-2xl md:text-3xl font-bold text-teal-700 mb-4">Forgot Password</h1>
+            <p className="text-gray-600 text-center mb-6 text-base md:text-lg">
+                Enter your email address to receive the OTP.
+            </p>
             <input
-
                 type="email"
-                style={styles.input}
+                className="w-full max-w-md h-12 border border-teal-500 rounded-lg px-3 text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-teal-500 mb-4"
                 placeholder="Enter your email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
             />
-
             <button
-                style={styles.button}
+                className={`w-full max-w-md h-12 bg-teal-700 text-white font-semibold rounded-lg text-sm md:text-base hover:bg-teal-800 transition disabled:bg-gray-400 ${isLoading ? "cursor-wait" : "cursor-pointer"
+                    }`}
                 onClick={handleSendOtp}
                 disabled={isLoading}
             >
@@ -56,48 +57,6 @@ const ForgotPasswordEmailScreen = () => {
     );
 };
 
-const styles = {
-    container: {
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        padding: "20px",
-        backgroundColor: "#f7f9fc",
-        height: "100vh",
-    },
-    header: {
-        fontSize: "24px",
-        fontWeight: "bold",
-        color: "#00796b",
-        marginBottom: "20px",
-    },
-    subHeader: {
-        fontSize: "16px",
-        color: "#757575",
-        textAlign: "center",
-        marginBottom: "30px",
-    },
-    input: {
-        width: "30%",
-        height: "50px",
-        borderColor: "#00796b",
-        borderWidth: "1px",
-        borderRadius: "10px",
-        paddingLeft: "10px",
-        marginBottom: "20px",
-        fontSize: "16px",
-    },
-    button: {
-        backgroundColor: "#00796b",
-        padding: "15px 40px",
-        borderRadius: "25px",
-        color: "#fff",
-        fontSize: "18px",
-        fontWeight: "bold",
-        border: "none",
-        cursor: "pointer",
-    },
-};
+
 
 export default ForgotPasswordEmailScreen;

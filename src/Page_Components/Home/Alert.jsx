@@ -27,10 +27,7 @@ const Ticker = ({ notificationData }) => {
           ))
         ) : (
           <div className="ticker-item flex-none px-8 text-white font-semibold text-lg">
-            <span className="font-bold">Welcome to DP Memorial Homoeopathy Clinic!</span>
-            We are committed to supporting your health journey through holistic healing. Whether you are a first-time visitor or a long-time patient, we focus on providing personalized care and natural remedies that prioritize your overall wellness.
-            <br /><br />
-            Explore our range of treatments, services, and resources carefully designed to help you lead a healthy, balanced life. If you have any questions or need assistance, feel free to reach out to us at any time. We are here to help!
+            <span className="font-bold">Welcome to DP Memorial Homoeopathy Clinic!</span> We are here to support your health journey with holistic healing. Whether you're visiting for the first time or are a long-time patient, we are dedicated to providing personalized care and natural remedies that focus on your overall wellness. Explore our treatments, services, and resources designed to help you lead a healthy, balanced life. Feel free to reach out to us if you have any questions or need assistance!
           </div>
         )}
       </div>

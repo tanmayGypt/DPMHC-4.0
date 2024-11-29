@@ -54,7 +54,7 @@ const ForgoPassOTP = () => {
             setIsLoading(true);
 
             if (!enteredOtp) {
-                Alert.alert("Error", "Please enter the OTP.");
+                Alert.alert("Error, Please enter the OTP.");
                 setIsLoading(false);
                 return;
             }
@@ -68,7 +68,7 @@ const ForgoPassOTP = () => {
             }
         } catch (error) {
             console.error("Error verifying OTP:", error);
-            alert("Error", "An error occurred while verifying the OTP. Please try again.");
+            alert("An error occurred while verifying the OTP. Please try again.");
         } finally {
             setIsLoading(false); // Ensure loading state is turned off
         }

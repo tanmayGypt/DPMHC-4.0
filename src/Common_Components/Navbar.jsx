@@ -42,93 +42,80 @@ export default function Navbar() {
   return (
     <nav className="bg-white border-gray-200 dark:bg-gray-900">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-        <Link to="/" className="flex items-center space-x-3 rtl:space-x-reverse">
-          <img
-            src="/logo.png"
-            className="h-8"
-            alt="Logo"
-          />
-          <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
-            DPHMC
-          </span>
+        {/* Logo */}
+        <Link to="/" className="flex items-center space-x-3">
+          <img src="/logo.png" className="h-8" alt="Logo" />
+          <span className="self-center text-2xl font-semibold dark:text-white">DPHMC</span>
         </Link>
 
-        <div className="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-          <button
-            type="button"
-            className="flex mr-3 text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
-            id="user-menu-button"
-            aria-expanded="false"
-            onClick={() => setShowUser(!showUser)}
-          >
-            <span className="sr-only">Open user menu</span>
-            <div className="flex gap-x-5 scale-150"> <Link to="Notifications"><FaBell className={`${location.pathname.includes("Notifications") ? "text-blue-500" : "text-white"} scale-150 hover:text-blue-300`} /></Link>
-              <Link to="/profile"> <CgProfile className={`${location.pathname.includes("profile") ? "text-blue-500" : "text-white"} scale-150 hover:text-blue-300`} /></Link></div>
-          </button>
+        {/* User and Hamburger Menu */}
+        <div className="flex items-center md:order-2 space-x-3">
+          {/* Notification and Profile Icons */}
+          <div className="flex gap-4">
+            <Link to="/Notifications">
+              <FaBell
+                className={`text-xl ${location.pathname.includes("Notifications") ? "text-blue-500" : "text-gray-700 dark:text-white"
+                  } hover:text-blue-400`}
+              />
+            </Link>
+            <Link to="/profile">
+              <CgProfile
+                className={`text-xl ${location.pathname.includes("profile") ? "text-blue-500" : "text-gray-700 dark:text-white"
+                  } hover:text-blue-400`}
+              />
+            </Link>
+          </div>
 
+          {/* Hamburger Menu */}
           <button
-            data-collapse-toggle="navbar-user"
             type="button"
-            className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-            aria-controls="navbar-user"
-            aria-expanded="false"
+            className="md:hidden p-2 text-gray-500 rounded-lg hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700"
             onClick={() => setShowHamburger(!showHamburger)}
           >
-            <span className="sr-only">Open main menu</span>
-            <svg
-              className="w-5 h-5"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 17 14"
-            >
-              <path
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M1 1h15M1 7h15M1 13h15"
-              />
+            <svg className="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7" />
             </svg>
           </button>
         </div>
 
+        {/* Navbar Links */}
         <div
-          className={`items-center justify-between w-full md:flex md:w-auto md:order-1 ${showHamburger ? "block" : "hidden"}`}
-          id="navbar-user"
+          className={`w-full md:flex md:w-auto md:order-1 ${showHamburger ? "block" : "hidden"
+            } transition-all duration-300`}
         >
-          <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0  dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+          <ul className="flex flex-col p-4 md:flex-row md:space-x-8 md:p-0 bg-gray-50 dark:bg-gray-800">
             <li>
               <Link
                 to="/"
-                className={`block py-2 px-3 rounded md:p-0 ${isActiveRoute("/") ? "text-teal-500" : "text-gray-900 hover:bg-gray-100 dark:text-white md:dark:hover:text-teal-500 dark:hover:bg-gray-700"}`}
-                aria-current={isActiveRoute("/") ? "page" : undefined}
-                onClick={() => setShowHamburger(false)}
+                className={`block py-2 px-4 rounded md:py-0 ${isActiveRoute("/") ? "text-blue-500" : "text-gray-700 hover:text-blue-500 dark:text-white"
+                  }`}
               >
                 Home
               </Link>
             </li>
-            <div className="relative">
+            <li className="relative">
               <select
                 name="appointment-options"
                 id="appointment-options"
-                className="block py-2 px-3 text-center text-blue-500 rounded transition-all ease-in-out duration-300 bg-transparent text-white md:p-0"
+                className="py-2 px-4 bg-transparent border-none text-gray-700 dark:text-white focus:ring-0 focus:outline-none"
                 onChange={handleSelectChange}
               >
-                <option value="" selected className="text-black">Appointment Section</option>
-                <option value="prev-apps" className={isActiveRoute("/Appointment") ? "text-teal-500" : "text-gray-900"}>
+                <option value="" disabled className="text-gray-400">
+                  Appointment Section
+                </option>
+                <option value="prev-apps" className="text-gray-700">
                   Previous Appointments
                 </option>
-                <option value="book-app" className="text-black">
+                <option value="book-app" className="text-gray-700">
                   Book an Appointment
                 </option>
               </select>
-            </div>
+            </li>
             <li>
               <Link
                 to="/Videos"
-                className={`block py-2 px-3 rounded md:p-0 ${isActiveRoute("/Videos") ? "text-teal-500" : "text-gray-900 hover:bg-gray-100 dark:text-white md:dark:hover:text-teal-500 dark:hover:bg-gray-700"}`}
-                onClick={() => setShowHamburger(false)}
+                className={`block py-2 px-4 rounded md:py-0 ${isActiveRoute("/Videos") ? "text-blue-500" : "text-gray-700 hover:text-blue-500 dark:text-white"
+                  }`}
               >
                 Videos
               </Link>
@@ -136,8 +123,8 @@ export default function Navbar() {
             <li>
               <Link
                 to="/Blog-List"
-                className={`block py-2 px-3 rounded md:p-0 ${isActiveRoute("/Blog-List") ? "text-teal-500" : "text-gray-900 hover:bg-gray-100 dark:text-white md:dark:hover:text-teal-500 dark:hover:bg-gray-700"}`}
-                onClick={() => setShowHamburger(false)}
+                className={`block py-2 px-4 rounded md:py-0 ${isActiveRoute("/Blog-List") ? "text-blue-500" : "text-gray-700 hover:text-blue-500 dark:text-white"
+                  }`}
               >
                 Blogs
               </Link>
@@ -145,8 +132,8 @@ export default function Navbar() {
             <li>
               <Link
                 to="/Medicines"
-                className={`block py-2 px-3 rounded md:p-0 ${isActiveRoute("/Medicines") ? "text-teal-500" : "text-gray-900 hover:bg-gray-100 dark:text-white md:dark:hover:text-teal-500 dark:hover:bg-gray-700"}`}
-                onClick={() => setShowHamburger(false)}
+                className={`block py-2 px-4 rounded md:py-0 ${isActiveRoute("/Medicines") ? "text-blue-500" : "text-gray-700 hover:text-blue-500 dark:text-white"
+                  }`}
               >
                 Medicines
               </Link>
@@ -154,8 +141,8 @@ export default function Navbar() {
             <li>
               <Link
                 to="/Gallary"
-                className={`block py-2 px-3 rounded md:p-0 ${isActiveRoute("/Gallary") ? "text-teal-500" : "text-gray-900 hover:bg-gray-100 dark:text-white md:dark:hover:text-teal-500 dark:hover:bg-gray-700"}`}
-                onClick={() => setShowHamburger(false)}
+                className={`block py-2 px-4 rounded md:py-0 ${isActiveRoute("/Gallary") ? "text-blue-500" : "text-gray-700 hover:text-blue-500 dark:text-white"
+                  }`}
               >
                 Gallery
               </Link>
@@ -163,8 +150,8 @@ export default function Navbar() {
             <li>
               <Link
                 to="/Reviews"
-                className={`block py-2 px-3 rounded md:p-0 ${isActiveRoute("/Reviews") ? "text-teal-500" : "text-gray-900 hover:bg-gray-100 dark:text-white md:dark:hover:text-teal-500 dark:hover:bg-gray-700"}`}
-                onClick={() => setShowHamburger(false)}
+                className={`block py-2 px-4 rounded md:py-0 ${isActiveRoute("/Reviews") ? "text-blue-500" : "text-gray-700 hover:text-blue-500 dark:text-white"
+                  }`}
               >
                 Reviews
               </Link>
@@ -172,17 +159,18 @@ export default function Navbar() {
             <li>
               <Link
                 to="/About"
-                className={`block py-2 px-3 rounded md:p-0 ${isActiveRoute("/About") ? "text-teal-500" : "text-gray-900 hover:bg-gray-100 dark:text-white md:dark:hover:text-teal-500 dark:hover:bg-gray-700"}`}
-                onClick={() => setShowHamburger(false)}
+                className={`block py-2 px-4 rounded md:py-0 ${isActiveRoute("/About") ? "text-blue-500" : "text-gray-700 hover:text-blue-500 dark:text-white"
+                  }`}
               >
                 About
               </Link>
             </li>
-            <li onClick={(e) => userHandler(e)}>
+            <li>
               <Link
                 to="/Login"
-                className={`block py-2 px-3 rounded md:p-0 ${isActiveRoute("/Login") ? "text-teal-500" : "text-gray-900 hover:bg-gray-100 dark:text-white md:dark:hover:text-teal-500 dark:hover:bg-gray-700"}`}
-                onClick={() => setShowHamburger(false)}
+                className={`block py-2 px-4 rounded md:py-0 ${isActiveRoute("/Login") ? "text-blue-500" : "text-gray-700 hover:text-blue-500 dark:text-white"
+                  }`}
+                onClick={userHandler}
               >
                 {user && jwt ? "Logout" : "Login"}
               </Link>
