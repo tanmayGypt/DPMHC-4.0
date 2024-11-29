@@ -55,7 +55,7 @@ export default function BlogList() {
           onChange={(e) => setSelectedCategory(e.target.value)}
         >
           <option value="All">All Categories</option>
-          {categories?.filter((item) => item.subCategory === "Blog").map((item) => <option value={item.categoryName}>{item.categoryName}</option>)}
+          {categories?.filter((item) => item.subCategory === "Blog" && item.modelCategoty === 0).map((item) => <option value={item.categoryName}>{item.categoryName}</option>)}
 
         </select>
       </div>

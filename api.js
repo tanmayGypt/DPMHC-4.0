@@ -4,7 +4,10 @@ import Cookies from "js-cookie";
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 const token = Cookies.get("jwt");
 const api = axios.create({
-  baseURL: API_BASE_URL
+  baseURL: API_BASE_URL,
+  headers: {
+    "Content-Type": "application/json",
+  },
 });
 
 // Define the routes that do not require authentication
@@ -12,7 +15,6 @@ const noAuthRoutes = [
   '/auth/register',
   '/auth/getOtp',
   '/auth/verifyOtp',
-  "/auth/login",
   '/auth/resetPassword',
   '/auth/userByEmail',
   '/Blogs',
@@ -26,7 +28,7 @@ api.interceptors.request.use(
     // Only add the token if the route requires authentication
     if (!noAuthRoutes.some(route => config.url.includes(route))) {
       const token = Cookies.get("jwt");
-      if (token) {
+      if (token && token !== undefined) {
         config.headers.Authorization = `Bearer ${token}`;
       }
     }
@@ -106,8 +108,7 @@ export const getAppointmentsByUserId = async (userId) => {
 };
 export const getProducts = async () => {
   try {
-    const response = await api.get('/Blogs',
-    );
+    const response = await api.get('/Blogs');
     return response.data;
   } catch (error) {
     console.error('Error fetching alerts:', error);
