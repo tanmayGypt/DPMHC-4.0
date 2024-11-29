@@ -68,12 +68,10 @@ const OTPVerificationScreen = () => {
                 let signUpresponse = await registerUser(userData, enteredOtp);
                 console.log(signUpresponse)
                 if (signUpresponse) {
-                    alert(
-                        "Welcome",
-                        `Hello, ${userData.fullName}! You have registered successfully. Thank you for choosing DP Memorial Homoeopathic Clinic. Please log in to continue.`
+                    alert(`Hello, ${userData.fullName}! You have registered successfully. Thank you for choosing DP Memorial Homoeopathic Clinic. Please log in to continue.`
                     );
                 } else {
-                    alert("Error", "An error occurred while registering you. Please try again later.");
+                    alert("An error occurred while registering you. Please try again later.");
                 }
             } else {
                 alert("Verification Failed", response?.message || "Invalid OTP. Please try again.");
