@@ -33,10 +33,8 @@ function Home() {
     }
     fetchAlerts()
     fetchBlogs();
-
-  }, []);
-  useEffect(() => {
     window.scrollTo(0, 0);
+
   }, []);
   return (
     <div>
