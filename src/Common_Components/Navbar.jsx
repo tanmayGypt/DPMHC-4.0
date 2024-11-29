@@ -1,14 +1,13 @@
 import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaBell } from "react-icons/fa";
-import Cookie from "js-cookie";
 import { CgProfile } from "react-icons/cg";
+import Cookie from "js-cookie";
+
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false); // For animation
-  const [showUser, setShowUser] = useState(false);
   const [showHamburger, setShowHamburger] = useState(false);
   const navigate = useNavigate();
-  const location = useLocation(); // Get the current route
+  const location = useLocation();
   const jwt = Cookie.get("jwt");
   const user = Cookie.get("user");
   const unblockedRoutes = [
@@ -16,19 +15,15 @@ export default function Navbar() {
     "/Login",
     "/forgot-password",
     "/forgot-password/Otp",
-    "/reset-password"
+    "/reset-password",
   ];
-  function userHandler() {
-    Cookie.remove("user");
-    Cookie.remove("jwt");
-  }
-  const isUnblockedRoute = unblockedRoutes.includes(location.pathname);
 
+  const isUnblockedRoute = unblockedRoutes.includes(location.pathname);
   if (isUnblockedRoute) return null;
 
   const handleSelectChange = (e) => {
     const selectedValue = e.target.value;
-
+    setShowHamburger(false); // Close the hamburger menu
     if (selectedValue === "prev-apps") {
       navigate("/Appointment/prev-apps");
     } else if (selectedValue === "book-app") {
@@ -36,14 +31,22 @@ export default function Navbar() {
     }
   };
 
-  // Function to check if a path is the active route
+  const userHandler = () => {
+    Cookie.remove("user");
+    Cookie.remove("jwt");
+    setShowHamburger(false); // Close the hamburger menu
+    navigate("/Login");
+  };
+
   const isActiveRoute = (path) => location.pathname === path;
+
+  const closeHamburger = () => setShowHamburger(false);
 
   return (
     <nav className="bg-white border-gray-200 dark:bg-gray-900">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         {/* Logo */}
-        <Link to="/" className="flex items-center space-x-3">
+        <Link to="/" className="flex items-center space-x-3" onClick={closeHamburger}>
           <img src="/logo.png" className="h-8" alt="Logo" />
           <span className="self-center text-2xl font-semibold dark:text-white">DPHMC</span>
         </Link>
@@ -52,13 +55,13 @@ export default function Navbar() {
         <div className="flex items-center md:order-2 space-x-3">
           {/* Notification and Profile Icons */}
           <div className="flex gap-4">
-            <Link to="/Notifications">
+            <Link to="/Notifications" onClick={closeHamburger}>
               <FaBell
                 className={`text-xl ${location.pathname.includes("Notifications") ? "text-blue-500" : "text-gray-700 dark:text-white"
                   } hover:text-blue-400`}
               />
             </Link>
-            <Link to="/profile">
+            <Link to="/profile" onClick={closeHamburger}>
               <CgProfile
                 className={`text-xl ${location.pathname.includes("profile") ? "text-blue-500" : "text-gray-700 dark:text-white"
                   } hover:text-blue-400`}
@@ -87,6 +90,7 @@ export default function Navbar() {
             <li>
               <Link
                 to="/"
+                onClick={closeHamburger}
                 className={`block py-2 px-4 rounded md:py-0 ${isActiveRoute("/") ? "text-blue-500" : "text-gray-700 hover:text-blue-500 dark:text-white"
                   }`}
               >
@@ -114,6 +118,7 @@ export default function Navbar() {
             <li>
               <Link
                 to="/Videos"
+                onClick={closeHamburger}
                 className={`block py-2 px-4 rounded md:py-0 ${isActiveRoute("/Videos") ? "text-blue-500" : "text-gray-700 hover:text-blue-500 dark:text-white"
                   }`}
               >
@@ -123,6 +128,7 @@ export default function Navbar() {
             <li>
               <Link
                 to="/Blog-List"
+                onClick={closeHamburger}
                 className={`block py-2 px-4 rounded md:py-0 ${isActiveRoute("/Blog-List") ? "text-blue-500" : "text-gray-700 hover:text-blue-500 dark:text-white"
                   }`}
               >
@@ -132,6 +138,7 @@ export default function Navbar() {
             <li>
               <Link
                 to="/Medicines"
+                onClick={closeHamburger}
                 className={`block py-2 px-4 rounded md:py-0 ${isActiveRoute("/Medicines") ? "text-blue-500" : "text-gray-700 hover:text-blue-500 dark:text-white"
                   }`}
               >
@@ -141,6 +148,7 @@ export default function Navbar() {
             <li>
               <Link
                 to="/Gallary"
+                onClick={closeHamburger}
                 className={`block py-2 px-4 rounded md:py-0 ${isActiveRoute("/Gallary") ? "text-blue-500" : "text-gray-700 hover:text-blue-500 dark:text-white"
                   }`}
               >
@@ -150,6 +158,7 @@ export default function Navbar() {
             <li>
               <Link
                 to="/Reviews"
+                onClick={closeHamburger}
                 className={`block py-2 px-4 rounded md:py-0 ${isActiveRoute("/Reviews") ? "text-blue-500" : "text-gray-700 hover:text-blue-500 dark:text-white"
                   }`}
               >
@@ -159,6 +168,7 @@ export default function Navbar() {
             <li>
               <Link
                 to="/About"
+                onClick={closeHamburger}
                 className={`block py-2 px-4 rounded md:py-0 ${isActiveRoute("/About") ? "text-blue-500" : "text-gray-700 hover:text-blue-500 dark:text-white"
                   }`}
               >
@@ -166,14 +176,13 @@ export default function Navbar() {
               </Link>
             </li>
             <li>
-              <Link
-                to="/Login"
+              <button
+                onClick={userHandler}
                 className={`block py-2 px-4 rounded md:py-0 ${isActiveRoute("/Login") ? "text-blue-500" : "text-gray-700 hover:text-blue-500 dark:text-white"
                   }`}
-                onClick={userHandler}
               >
                 {user && jwt ? "Logout" : "Login"}
-              </Link>
+              </button>
             </li>
           </ul>
         </div>
