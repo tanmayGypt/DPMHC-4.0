@@ -37,7 +37,7 @@ function Gallary() {
       </div>
 
       {/* Gallery */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      {Images?.length > 0 ? <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {Images.filter((item) => item.active).map((image, index) => (
           <div
             key={index}
@@ -54,7 +54,9 @@ function Gallary() {
             </div>
           </div>
         ))}
-      </div>
+      </div> : <div className="flex justify-center items-center h-64 text-gray-500 text-lg font-medium">
+        No image to display, please come back later
+      </div>}
 
       {/* Image Modal */}
       {modalOpen && selectedImage && (
