@@ -3,7 +3,7 @@ import Footer from "./Common_Components/Footer";
 import Navbar from "./Common_Components/Navbar";
 import Appointment from "./Page/Appointment";
 import Home from "./Page/Home";
-import { BrowserRouter, Routes, Route, useLocation, Link } from "react-router-dom";
+import { HashRouter, Routes, Route, useLocation, Link } from "react-router-dom";
 import Previous_Appointments from "./Page/Previous_Appointments";
 import Medicines from "./Page/Medicines";
 import { useEffect } from "react";
@@ -87,7 +87,7 @@ function App() {
 
   return (
     <>
-      <BrowserRouter>
+      <HashRouter>
         <DynamicTitle />
         {<Navbar />}
         <Routes>
@@ -128,7 +128,7 @@ function App() {
         >
           Feedback
         </Link>
-      </BrowserRouter>
+      </HashRouter>
     </>
   );
 }
