@@ -5,7 +5,6 @@ import Cookies from "js-cookie";
 function Previous_Appointments() {
   const [data, setData] = useState([]);
   const user = Cookies.get("user");
-  console.log(user)
   useEffect(() => {
     window.scrollTo(0, 0);
     const fetch = async () => {

@@ -4,7 +4,6 @@ import { useParams } from "react-router-dom";
 const YouTubePlayer = () => {
   const [videoId, setVideoId] = useState("OxWYP2Damac");
   let { videoUrl } = useParams();
-  console.log(videoUrl);
   // Extract YouTube video ID from the URL
   // const extractVideoId = (url) => {
   //   const regex =

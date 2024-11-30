@@ -39,8 +39,6 @@ api.interceptors.request.use(
 
 export const registerUser = async (userData, otp) => {
   try {
-    console.log('Sending OTP:', otp);
-    console.log('User Data:', userData);
 
     const response = await api.post(`/auth/register/${otp}`, {
       username: userData.email,
@@ -152,7 +150,7 @@ export const getBlogs = async () => {
 export const uploadImages = async (formData) => {
   try {
     const response = await api.post(`/api/upload/images`, formData);
-    console.log(response)
+
     return response.data;
   } catch (error) {
     console.error('Error uploading:', error);
@@ -252,7 +250,7 @@ export const getCommentsForPost = async (targetBlogId) => {
 export const createComment = async (commentData) => {
   try {
     const response = await api.post('/comment', commentData);
-    console.log(response)
+
     return response.data;
   } catch (error) {
     console.error('Error creating comment:', error);
@@ -286,7 +284,7 @@ export const verifyOtp = async ({ otp, email }) => {
 };
 
 export const resetPassword = async ({ otp, email, password }) => {
-  console.log(otp, email, password)
+
   try {
     const url = `${API_BASE_URL}/auth/resetPassword?otp=${otp}&email=${email}&password=${password}`;
 

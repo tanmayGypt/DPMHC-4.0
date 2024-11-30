@@ -16,7 +16,7 @@ const LoginScreen = () => {
             }
         };
         checkUserLoggedIn();
-    }, [navigate]);
+    }, []);
 
     const validateEmail = (email) => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -39,7 +39,7 @@ const LoginScreen = () => {
         try {
             const loginData = { email, password };
             const response = await loginUser(loginData);
-            console.log("Login successful:", response);
+
             if (response) {
                 navigate("/")
             }

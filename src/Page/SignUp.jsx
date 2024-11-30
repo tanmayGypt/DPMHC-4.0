@@ -82,9 +82,7 @@ const SignupScreen = () => {
                 address,
                 isVerified: false,
             };
-            localStorage.setItem("userData", JSON.stringify(userData));
 
-            console.log(userData);
             navigate(`/otp/${userData.email}/user`, { state: userData });
         } catch (error) {
             console.error("Sign up error:", error);

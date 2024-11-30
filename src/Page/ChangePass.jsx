@@ -10,7 +10,7 @@ const ChangePassScreen = () => {
     const [newPassword, setNewPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [isLoading, setIsLoading] = useState(false);
-    console.log(email, enteredOtp)
+
     const handleSavePassword = async () => {
         if (!newPassword || !confirmPassword) {
             alert("Please fill in both fields.");

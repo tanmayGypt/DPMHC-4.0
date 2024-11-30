@@ -21,7 +21,7 @@ function Home() {
       try {
         const response = await getBlogs();
         setBlogsData(response);
-        console.log(response)
+
       } catch (error) {
         console.error("Error fetching blogs:", error);
       }
@@ -33,7 +33,7 @@ function Home() {
     }
     fetchAlerts()
     fetchBlogs();
-    window.scrollTo(0, 0);
+
 
   }, []);
   return (

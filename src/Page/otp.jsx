@@ -66,7 +66,7 @@ const OTPVerificationScreen = () => {
             if (response) {
                 userData.email = userData.email;
                 let signUpresponse = await registerUser(userData, enteredOtp);
-                console.log(signUpresponse)
+
                 if (signUpresponse) {
                     alert(`Hello, ${userData.fullName}! You have registered successfully. Thank you for choosing DP Memorial Homoeopathic Clinic. Please log in to continue.`
                     );

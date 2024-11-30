@@ -14,7 +14,7 @@ const ForgoPassOTP = () => {
         navigate("/");
         return;
     }
-    console.log(email)
+
     const generate = async () => {
         await generateOTP({ name: "User", email: email });
     }
