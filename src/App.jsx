@@ -1,4 +1,6 @@
 import "./App.css";
+import { SpeedInsights } from "@vercel/speed-insights/remix"
+
 import { Analytics } from "@vercel/analytics/react"
 import Footer from "./Common_Components/Footer";
 import Navbar from "./Common_Components/Navbar";
@@ -91,6 +93,8 @@ function App() {
       <HashRouter>
         <DynamicTitle />
         {<Navbar />}
+        <SpeedInsights />
+        <Analytics />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/Appointment" element={<PrivateRoute><Appointment /></PrivateRoute>} />
