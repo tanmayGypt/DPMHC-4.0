@@ -1,4 +1,5 @@
 import "./App.css";
+import { Analytics } from "@vercel/analytics/react"
 import Footer from "./Common_Components/Footer";
 import Navbar from "./Common_Components/Navbar";
 import Appointment from "./Page/Appointment";
