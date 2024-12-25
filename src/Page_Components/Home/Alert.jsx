@@ -18,7 +18,7 @@ const Ticker = ({ notificationData }) => {
     <div className="ticker-wrapper bg-gradient-to-r from-blue-500 via-teal-500 to-green-500">
       <div className="ticker text-white">
         {/* If no notifications, show a default welcome message */}
-        {false ? (
+        {notificationData?.length > 0 ? (
           notificationData?.filter((item) => item.showOnWeb && item.active).map((notification, index) => (
             <div key={index} className="ticker-item flex-none px-8 text-white font-semibold text-lg">
               <span className="font-bold">{notification.title}: </span>

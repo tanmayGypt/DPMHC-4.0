@@ -43,11 +43,7 @@ function Home() {
           <div style={styles.popup}>
             <h2 style={styles.title}>Service Update</h2>
             <p style={styles.message}>
-              Our appointment booking service is temporarily unavailable as we are
-              currently performing updates to enhance your experience.
-              In the meantime, you can book your appointment by contacting us on
-              WhatsApp at <strong>9716749169</strong>.
-              We apologize for any inconvenience caused and appreciate your understanding.
+              All our services and features are working perfectly! You can sign up to create your account and log in to book appointments and access more features. We are also excited to announce that more exciting features will be released soon. Stay tuned!
             </p>
             <button style={styles.button} onClick={closePopup}>
               Close
@@ -55,6 +51,7 @@ function Home() {
           </div>
         </div>
       )}
+
 
       <ScrollContainer>
         <Header notificationData={notificationData} />

@@ -2,14 +2,13 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { createAppointment } from "../../../../api";
 import { useNavigate } from "react-router-dom";
-import Cookies from "js-cookie"; // Import the js-cookie library
+import Cookies from "js-cookie";
 import { uploadToCloudinary } from "../../../ImageUpload";
 
 export default function Appform() {
   const existingUser = Cookies.get("user");
   const [file, setFile] = useState(null);
   const [uploading, setUploading] = useState(false);
-  const [uploadedUrl, setUploadedUrl] = useState("");
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -30,8 +29,6 @@ export default function Appform() {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
-
-
 
   const cleanPhoneNumber = (phone) => {
     return phone.replace(/\D/g, "");
@@ -79,9 +76,14 @@ export default function Appform() {
     e.preventDefault();
     if (validate()) {
       setLoading(true);
-      FormData.user = existingUser;
       try {
-        const imageUrl = await uploadToCloudinary([file]);
+        let imageUrl = null;
+        if (file) {
+          setUploading(true);
+          imageUrl = await uploadToCloudinary([file]);
+          setUploading(false);
+        }
+
         const appointmentData = {
           name: formData.name,
           phone: cleanPhoneNumber(formData.phone),
@@ -89,11 +91,12 @@ export default function Appform() {
           date: formData.date,
           time: formData.time,
           message: formData.message,
-          documentUrl: imageUrl[0],
+          documentUrl: imageUrl ? imageUrl[0] : null,
           userId: existingUser
         };
+
         const response = await createAppointment(appointmentData);
-        alert("Success , Your Appointment has been booked Successfully");
+        alert("Success, Your Appointment has been booked Successfully");
 
         navigate("/Appointment/prev-apps");
       } catch (error) {
@@ -109,17 +112,10 @@ export default function Appform() {
       <div className={`flex items-center justify-center p-12 ${loading ? "blur" : ""}`}>
         <div className="max-w-lg w-full bg-white mx-auto">
           <form onSubmit={handleSubmit}>
-            <h2 className="text-3xl mb-5 text-center font-medium">
-              Book An Appointment
-            </h2>
+            <h2 className="text-3xl mb-5 text-center font-medium">Book An Appointment</h2>
 
             <div className="mb-5">
-              <label
-                htmlFor="name"
-                className="block font-medium text-lg text-gray-900 mb-3"
-              >
-                Full Name
-              </label>
+              <label htmlFor="name" className="block font-medium text-lg text-gray-900 mb-3">Full Name</label>
               <input
                 type="text"
                 name="name"
@@ -134,12 +130,7 @@ export default function Appform() {
             </div>
 
             <div className="mb-5">
-              <label
-                htmlFor="phone"
-                className="block font-medium text-lg text-gray-900 mb-3"
-              >
-                Phone Number
-              </label>
+              <label htmlFor="phone" className="block font-medium text-lg text-gray-900 mb-3">Phone Number</label>
               <input
                 type="text"
                 name="phone"
@@ -154,12 +145,7 @@ export default function Appform() {
             </div>
 
             <div className="mb-5">
-              <label
-                htmlFor="email"
-                className="block font-medium text-lg text-gray-900 mb-3"
-              >
-                Email Address
-              </label>
+              <label htmlFor="email" className="block font-medium text-lg text-gray-900 mb-3">Email Address</label>
               <input
                 type="email"
                 name="email"
@@ -175,12 +161,7 @@ export default function Appform() {
 
             <div className="flex flex-wrap -mx-3">
               <div className="w-full sm:w-1/2 px-3 mb-5">
-                <label
-                  htmlFor="date"
-                  className="block font-medium text-lg text-gray-900 mb-3"
-                >
-                  Date
-                </label>
+                <label htmlFor="date" className="block font-medium text-lg text-gray-900 mb-3">Date</label>
                 <input
                   type="date"
                   name="date"
@@ -194,12 +175,7 @@ export default function Appform() {
               </div>
 
               <div className="w-full sm:w-1/2 px-3 mb-5">
-                <label
-                  htmlFor="time"
-                  className="block font-medium text-lg text-gray-900 mb-3"
-                >
-                  Time
-                </label>
+                <label htmlFor="time" className="block font-medium text-lg text-gray-900 mb-3">Time</label>
                 <input
                   type="time"
                   name="time"
@@ -216,9 +192,7 @@ export default function Appform() {
             </div>
 
             <div className="mb-5 pt-3">
-              <label className="block font-semibold text-xl text-gray-900 mb-5">
-                Your message
-              </label>
+              <label className="block font-semibold text-xl text-gray-900 mb-5">Your message</label>
               <textarea
                 name="message"
                 id="message"
@@ -229,23 +203,17 @@ export default function Appform() {
                 className="w-full p-3 border border-gray-300 rounded-lg focus:border-indigo-600 focus:ring-indigo-600"
                 rows="5"
               ></textarea>
-              {errors.message && (
-                <p className="text-red-500">{errors.message}</p>
-              )}
+              {errors.message && <p className="text-red-500">{errors.message}</p>}
             </div>
 
             <div className="mb-5 pt-3">
-              <label className="block font-semibold text-xl text-gray-900 mb-5">
-                Upload Images (Optional)
-              </label>
+              <label className="block font-semibold text-xl text-gray-900 mb-5">Upload Images (Optional)</label>
               <input
                 type="file"
                 onChange={(e) => setFile(e.target.files[0])}
                 className="block w-full text-gray-900"
               />
-              {uploading && (
-                <p className="text-red-500">uploading file...</p>
-              )}
+              {uploading && <p className="text-red-500">Uploading file...</p>}
             </div>
             <div>
               <button className="w-full text-center font-semibold text-lg bg-indigo-600 text-white py-4 rounded-lg hover:bg-indigo-700 focus:ring focus:ring-indigo-200">
