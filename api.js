@@ -183,7 +183,7 @@ export const getImages = async () => {
   }
 };
 
-export const updateUserByEmail = async (data) => {
+export const UpdateUserByEmail = async (data) => {
   try {
     const response = await api.post(`/auth/userByEmail/${data.email}`, data);
     return response.data;
