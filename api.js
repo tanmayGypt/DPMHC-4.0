@@ -186,7 +186,7 @@ export const getImages = async () => {
 export const UpdateUserByEmail = async (data) => {
   try {
     const response = await api.post(`/auth/userByEmail/${data.email}`, data);
-    return response.data;
+    return null;
   } catch (error) {
     console.error('Error updating user by email:', error.message || error);
     throw error.response?.data || error;
@@ -196,7 +196,7 @@ export const UpdateUserByEmail = async (data) => {
 export const getUserByEmail = async (email) => {
   try {
     const response = await api.get(`/auth/userByEmail/${email}`);
-    return response.data;
+    return null;
   } catch (error) {
     console.error('Error fetching user by email:', error);
     throw error;
