@@ -15,6 +15,16 @@ function Home() {
   const [showPopup, setShowPopup] = useState(true); // State to manage popup visibility
   const closePopup = () => setShowPopup(false);
 
+  setInterval(() => {
+    axios.get('https://api.dpmemorial.com') // Replace with your API URL
+      .then(response => {
+        console.log('Data received:', response.data);
+      })
+      .catch(error => {
+        console.error('There was a problem with the request:', error);
+      });
+  }, 10 * 60 * 1000); // 10 minutes in milliseconds
+
   const [a, setA] = useState(null);
   useEffect(() => {
     const fetchBlogs = async () => {
