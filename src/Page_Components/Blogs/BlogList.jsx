@@ -61,7 +61,7 @@ export default function BlogList() {
       </div>
 
       <div className="flex flex-wrap justify-start gap-4"> {/* Ensure cards are spread out */}
-        {filteredBlogs && filteredBlogs.length > 0 ? (
+        {filteredBlogs && filteredBlogs.length && filteredBlogs.filter((item) => item.published === true && item.modelCategoty === 0) > 0 ? (
           filteredBlogs.filter((item) => item.published && item.modelCategoty === 0).map((item) => (
             <Medicine_Card
               key={item.id}

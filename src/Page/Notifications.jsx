@@ -32,8 +32,8 @@ const Notifications = () => {
             <h1 className="text-3xl mt-12 md:text-4xl font-bold text-center text-teal-600 mb-6">
                 Notifications
             </h1>
-            {data && data.length > 0 ? (
-                data.filter((item) => item.showOnWeb && item.active).map((message, index) => (
+            {data && data.length && data.filter((item) => item.active === true) > 0 ? (
+                data.filter((item) => item.active === true).map((message, index) => (
                     <MessageCard
                         key={index}
                         title={message.title}
