@@ -104,7 +104,7 @@ export default function Navbar() {
                 className="py-2 px-4 bg-transparent border-none text-gray-700 dark:text-white focus:ring-0 focus:outline-none"
                 onChange={handleSelectChange}
               >
-                <option value="" disabled className="text-gray-400">
+                <option value="" selected className="text-gray-400">
                   Appointment Section
                 </option>
                 <option value="prev-apps" className="text-gray-700">
