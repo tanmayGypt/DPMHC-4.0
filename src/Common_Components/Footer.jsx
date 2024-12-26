@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { FaHome, FaCalendarCheck, FaBell, FaPills, FaVideo, FaInfoCircle, FaStar } from "react-icons/fa";
 import { FaInstagram, FaFacebookF, FaYoutube, FaWhatsapp } from "react-icons/fa";
 
@@ -28,13 +28,13 @@ export default function Footer() {
         <nav className="flex flex-wrap justify-center -mx-5 -my-2">
           {routes.map((route) => (
             <div key={route.path} className="px-5 py-2 flex items-center space-x-2">
-              <a
-                href={route.path}
+              <Link
+                to={route.path}
                 className="text-base leading-6 hover:text-indigo-400 transition-colors duration-200 flex items-center space-x-2"
               >
                 <span>{route.icon}</span>
                 <span>{route.label}</span>
-              </a>
+              </Link>
             </div>
           ))}
         </nav>
