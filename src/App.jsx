@@ -59,7 +59,15 @@ function DynamicTitle() {
 
   return null; // This component doesn't render anything
 }
-
+setInterval(() => {
+  axios.get('https://api.dpmemorial.com') // Replace with your API URL
+    .then(response => {
+      console.log('Data received:', response.data);
+    })
+    .catch(error => {
+      console.error('There was a problem with the request:', error);
+    });
+}, 10 * 60 * 1000);
 function Videos() {
 
   useEffect(() => {

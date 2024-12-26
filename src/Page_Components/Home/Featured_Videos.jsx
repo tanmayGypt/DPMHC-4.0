@@ -74,29 +74,41 @@ const featuredVideos = [
 ];
 function Featured_Videos() {
   return (
-    <div className="flex flex-col gap-4 mb-12">
-      <div className="mx-auto">
-        <span className="text-xl font-bold text-center text-black sm:text-2xl md:text-3xl lg:text-4xl">
+    <div className="flex flex-col gap-8 px-4 py-12 mb-12 bg-gray-50 rounded-lg shadow-lg md:px-8 lg:px-16">
+      {/* Title Section */}
+      <div className="text-center">
+        <h2 className="text-2xl font-extrabold text-gray-800 sm:text-3xl md:text-4xl">
           Our Popular Youtube Videos
-        </span>
+        </h2>
+        <p className="mt-2 text-lg text-gray-600 sm:text-xl">
+          Explore some of the best videos we have to offer!
+        </p>
       </div>
 
-      <div className="flex flex-col items-center justify-between mx-4 space-y-4 md:space-y-0 md:mx-8 md:flex-row md:items-center">
-        <span className="text-lg font-semibold text-center text-gray-800 sm:text-xl md:text-2xl lg:text-3xl">
+      {/* Header with Link */}
+      <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
+        <h3 className="text-xl font-semibold text-gray-700 sm:text-2xl md:text-3xl">
           Featured Videos
-        </span>
+        </h3>
         <Link
           to="/Videos"
-          className="text-lg font-medium text-red-500 transition-transform hover:scale-105 hover:text-red-400 sm:text-xl md:text-2xl lg:text-3xl"
+          className="px-4 py-2 text-lg font-medium text-white transition-transform bg-red-500 rounded-md hover:scale-105 hover:bg-red-400 sm:text-xl"
         >
           View All
         </Link>
       </div>
 
-      <Slider {...settings} className="">{featuredVideos.map((video, index) => (
-        <VideoCard key={index} video={video} />
-      ))}</Slider>
-
+      {/* Slider Section */}
+      <Slider {...settings} className="w-full">
+        {featuredVideos.map((video, index) => (
+          <div
+            key={index}
+            className="p-4 transition-transform bg-white rounded-lg shadow-md hover:scale-105"
+          >
+            <VideoCard video={video} />
+          </div>
+        ))}
+      </Slider>
     </div>
   );
 }
