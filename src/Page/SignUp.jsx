@@ -41,7 +41,6 @@ const SignupScreen = () => {
             !dob ||
             !country ||
             !state ||
-            !address ||
             !phoneNumber
         ) {
             return alert("All fields are required.");
@@ -59,9 +58,7 @@ const SignupScreen = () => {
             return alert("Passwords do not match.");
         }
 
-        if (!isDateValid(dob)) {
-            return alert("Date of Birth must be in DD/MM/YYYY format.");
-        }
+
 
         if (password.length < 6) {
             alert("Password must be at least 6 characters.");
@@ -101,7 +98,7 @@ const SignupScreen = () => {
                 <h1 className="text-2xl font-bold text-center text-gray-800">Sign Up</h1>
                 <form className="space-y-4 mt-6">
                     <div>
-                        <label className="block text-gray-700">Full Name</label>
+                        <label className="block text-gray-700">Full Name <span className="text-red-500">*</span></label>
                         <input
                             type="text"
                             className="w-full p-3 bg-gray-100 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -111,7 +108,7 @@ const SignupScreen = () => {
                         />
                     </div>
                     <div>
-                        <label className="block text-gray-700">Email Address</label>
+                        <label className="block text-gray-700">Email Address <span className="text-red-500">*</span></label>
                         <input
                             type="email"
                             className="w-full p-3 bg-gray-100 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -121,7 +118,7 @@ const SignupScreen = () => {
                         />
                     </div>
                     <div>
-                        <label className="block text-gray-700">Phone Number</label>
+                        <label className="block text-gray-700">Phone Number <span className="text-red-500">*</span></label>
                         <input
                             type="text"
                             className="w-full p-3 bg-gray-100 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -131,7 +128,7 @@ const SignupScreen = () => {
                         />
                     </div>
                     <div>
-                        <label className="block text-gray-700">Password</label>
+                        <label className="block text-gray-700">Password <span className="text-red-500">*</span></label>
                         <input
                             type="password"
                             className="w-full p-3 bg-gray-100 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -141,7 +138,7 @@ const SignupScreen = () => {
                         />
                     </div>
                     <div>
-                        <label className="block text-gray-700">Confirm Password</label>
+                        <label className="block text-gray-700">Confirm Password <span className="text-red-500">*</span></label>
                         <input
                             type="password"
                             className="w-full p-3 bg-gray-100 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -151,34 +148,74 @@ const SignupScreen = () => {
                         />
                     </div>
                     <div>
-                        <label className="block text-gray-700">Date of Birth</label>
+                        <label className="block text-gray-700">Date of Birth <span className="text-red-500">*</span></label>
                         <input
-                            type="text"
+                            type="date"
                             className="w-full p-3 bg-gray-100 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            placeholder="DD/MM/YYYY"
                             value={dob}
                             onChange={(e) => setDob(e.target.value)}
                         />
                     </div>
+
                     <div>
-                        <label className="block text-gray-700">Country</label>
-                        <input
-                            type="text"
+                        <label className="block text-gray-700">Country <span className="text-red-500">*</span></label>
+                        <select
                             className="w-full p-3 bg-gray-100 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            placeholder="Enter Country"
                             value={country}
                             onChange={(e) => setCountry(e.target.value)}
-                        />
+                        >
+                            <option value="Nill" selected>Select Country</option>
+                            <option value="India">India</option>
+                            <option value="others">Other</option>
+                        </select>
                     </div>
                     <div>
-                        <label className="block text-gray-700">State</label>
-                        <input
-                            type="text"
+                        <label className="block text-gray-700">State <span className="text-red-500">*</span></label>
+                        <select
                             className="w-full p-3 bg-gray-100 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            placeholder="Enter State"
                             value={state}
                             onChange={(e) => setState(e.target.value)}
-                        />
+                        >
+                            <option value="Nill" selected>Select State</option>
+                            <option value="Andhra Pradesh">Andhra Pradesh</option>
+                            <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                            <option value="Assam">Assam</option>
+                            <option value="Bihar">Bihar</option>
+                            <option value="Chhattisgarh">Chhattisgarh</option>
+                            <option value="Goa">Goa</option>
+                            <option value="Gujarat">Gujarat</option>
+                            <option value="Haryana">Haryana</option>
+                            <option value="Himachal Pradesh">Himachal Pradesh</option>
+                            <option value="Jharkhand">Jharkhand</option>
+                            <option value="Karnataka">Karnataka</option>
+                            <option value="Kerala">Kerala</option>
+                            <option value="Madhya Pradesh">Madhya Pradesh</option>
+                            <option value="Maharashtra">Maharashtra</option>
+                            <option value="Manipur">Manipur</option>
+                            <option value="Meghalaya">Meghalaya</option>
+                            <option value="Mizoram">Mizoram</option>
+                            <option value="Nagaland">Nagaland</option>
+                            <option value="Odisha">Odisha</option>
+                            <option value="Punjab">Punjab</option>
+                            <option value="Rajasthan">Rajasthan</option>
+                            <option value="Sikkim">Sikkim</option>
+                            <option value="Tamil Nadu">Tamil Nadu</option>
+                            <option value="Telangana">Telangana</option>
+                            <option value="Tripura">Tripura</option>
+                            <option value="Uttar Pradesh">Uttar Pradesh</option>
+                            <option value="Uttarakhand">Uttarakhand</option>
+                            <option value="West Bengal">West Bengal</option>
+                            <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+                            <option value="Chandigarh">Chandigarh</option>
+                            <option value="Dadra and Nagar Haveli and Daman and Diu">Dadra and Nagar Haveli and Daman and Diu</option>
+                            <option value="Delhi">Delhi</option>
+                            <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+                            <option value="Ladakh">Ladakh</option>
+                            <option value="Lakshadweep">Lakshadweep</option>
+                            <option value="Puducherry">Puducherry</option>
+                            <option value="Others">Others</option>
+
+                        </select>
                     </div>
                     <div>
                         <label className="block text-gray-700">Address</label>

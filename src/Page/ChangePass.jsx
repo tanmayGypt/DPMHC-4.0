@@ -40,84 +40,45 @@ const ChangePassScreen = () => {
     };
 
     return (
-        <div style={styles.container}>
+        <div className="flex items-center justify-center min-h-screen bg-gray-50">
+            <div className="bg-white shadow-md rounded-lg p-8 max-w-md w-full">
+                <h1 className="text-2xl md:text-3xl font-bold text-gray-800 text-center mb-4">
+                    Set New Password
+                </h1>
+                <p className="text-gray-600 text-center mb-6 text-base md:text-lg">
+                    Create a strong password to secure your account.
+                </p>
 
-            <h1 style={styles.header}>Set New Password</h1>
-            <p style={styles.subHeader}>Create a strong password to secure your account.</p>
+                <input
+                    type="password"
+                    className="w-full h-12 border border-gray-300 rounded-md px-4 text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4"
+                    placeholder="New Password"
+                    value={newPassword}
+                    onChange={(e) => setNewPassword(e.target.value)}
+                />
+                <input
+                    type="password"
+                    className="w-full h-12 border border-gray-300 rounded-md px-4 text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-blue-500 mb-6"
+                    placeholder="Confirm New Password"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                />
 
-            <input
-                type="password"
-                style={styles.input}
-                placeholder="New Password"
-                value={newPassword}
-                onChange={(e) => setNewPassword(e.target.value)}
-            />
-            <input
-                type="password"
-                style={styles.input}
-                placeholder="Confirm New Password"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-            />
-
-            <button
-                style={styles.button}
-                onClick={handleSavePassword}
-                disabled={isLoading}
-            >
-                {isLoading ? "Saving Password..." : "Save Password"}
-            </button>
+                <button
+                    onClick={handleSavePassword}
+                    disabled={isLoading}
+                    className={`w-full h-12 font-semibold rounded-md text-sm md:text-base ${isLoading
+                        ? "bg-gray-400 text-gray-500 cursor-not-allowed"
+                        : "bg-blue-500 text-white hover:bg-blue-600 transition"
+                        }`}
+                >
+                    {isLoading ? "Saving Password..." : "Save Password"}
+                </button>
+            </div>
         </div>
     );
 };
 
-const styles = {
-    container: {
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        padding: "20px",
-        backgroundColor: "#f7f9fc",
-        minHeight: "100vh",
-    },
-    logo: {
-        width: "100px",
-        height: "100px",
-        marginBottom: "15%",
-    },
-    header: {
-        fontSize: "24px",
-        fontWeight: "bold",
-        color: "#00796b",
-        marginBottom: "20px",
-    },
-    subHeader: {
-        fontSize: "16px",
-        color: "#757575",
-        textAlign: "center",
-        marginBottom: "30px",
-    },
-    input: {
-        width: "30%",
-        height: "50px",
-        borderColor: "#00796b",
-        borderWidth: "1px",
-        borderRadius: "10px",
-        paddingLeft: "10px",
-        marginBottom: "20px",
-        backgroundColor: "#ffffff",
-    },
-    button: {
-        backgroundColor: "#00796b",
-        padding: "15px 40px",
-        borderRadius: "25px",
-        color: "#fff",
-        fontSize: "18px",
-        fontWeight: "bold",
-        cursor: "pointer",
-        border: "none",
-    },
-};
+
 
 export default ChangePassScreen;

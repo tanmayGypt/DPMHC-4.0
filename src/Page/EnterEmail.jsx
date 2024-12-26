@@ -33,26 +33,30 @@ const ForgotPasswordEmailScreen = () => {
     };
 
     return (
-        <div className="flex flex-col justify-center items-center px-4 py-6 bg-gray-50 min-h-screen">
-            <h1 className="text-2xl md:text-3xl font-bold text-teal-700 mb-4">Forgot Password</h1>
-            <p className="text-gray-600 text-center mb-6 text-base md:text-lg">
-                Enter your email address to receive the OTP.
-            </p>
-            <input
-                type="email"
-                className="w-full max-w-md h-12 border border-teal-500 rounded-lg px-3 text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-teal-500 mb-4"
-                placeholder="Enter your email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-            />
-            <button
-                className={`w-full max-w-md h-12 bg-teal-700 text-white font-semibold rounded-lg text-sm md:text-base hover:bg-teal-800 transition disabled:bg-gray-400 ${isLoading ? "cursor-wait" : "cursor-pointer"
-                    }`}
-                onClick={handleSendOtp}
-                disabled={isLoading}
-            >
-                {isLoading ? "Sending OTP..." : "Send OTP"}
-            </button>
+        <div className="flex items-center justify-center min-h-screen bg-gray-50">
+            <div className="bg-white shadow-md rounded-lg p-8 max-w-md w-full">
+                <h1 className="text-2xl md:text-3xl font-bold text-gray-800 text-center mb-4">
+                    Forgot Password
+                </h1>
+                <p className="text-gray-600 text-center mb-6 text-base md:text-lg">
+                    Enter your email address to receive the OTP.
+                </p>
+                <input
+                    type="email"
+                    className="w-full h-12 border border-gray-300 rounded-md px-3 text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4"
+                    placeholder="Enter your email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                />
+                <button
+                    className={`w-full h-12 bg-blue-500 text-white font-semibold rounded-md text-sm md:text-base hover:bg-blue-600 transition disabled:bg-gray-300 ${isLoading ? "cursor-wait" : "cursor-pointer"
+                        }`}
+                    onClick={handleSendOtp}
+                    disabled={isLoading}
+                >
+                    {isLoading ? "Sending OTP..." : "Send OTP"}
+                </button>
+            </div>
         </div>
     );
 };
