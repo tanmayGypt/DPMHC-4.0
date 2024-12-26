@@ -11,11 +11,7 @@ export default function Navbar() {
   const jwt = Cookie.get("jwt");
   const user = Cookie.get("user");
   const unblockedRoutes = [
-    "/signup",
-    "/Login",
-    "/forgot-password",
-    "/forgot-password/Otp",
-    "/reset-password",
+
   ];
 
   const isUnblockedRoute = unblockedRoutes.includes(location.pathname);

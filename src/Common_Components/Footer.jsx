@@ -15,11 +15,7 @@ const routes = [
 export default function Footer() {
   const location = useLocation(); // Get the current route
   const unblockedRoutes = [
-    "/signup",
-    "/Login",
-    "/forgot-password",
-    "/forgot-password/Otp",
-    "/reset-password",
+
   ];
 
   const isUnblockedRoute = unblockedRoutes.includes(location.pathname);
