@@ -15,7 +15,7 @@ const ProfilePage = () => {
     const user = Cookies.get("user");
     useEffect(() => {
         const fetch = async () => {
-            const resp = await getUserByEmail(user);
+            const resp = await getUserByEmail(Cookies.get("jwt"));
             setEmail(resp.email ? resp.email : "Not Available")
             setCountry(resp.country ? resp.country : "Not Available")
             setFullName(resp.fullName ? resp.fullName : "Not Available")

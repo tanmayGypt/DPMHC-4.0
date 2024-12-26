@@ -14,7 +14,6 @@ const noAuthRoutes = [
   '/auth/getOtp',
   '/auth/verifyOtp',
   '/auth/resetPassword',
-  '/auth/userByEmail',
   '/Login',
   '/forgot-password',
   '/forgot-password/Otp'
@@ -186,7 +185,7 @@ export const getImages = async () => {
 export const UpdateUserByEmail = async (data) => {
   try {
     const response = await api.post(`/auth/userByEmail/${data.email}`, data);
-    return null;
+    return response.data;
   } catch (error) {
     console.error('Error updating user by email:', error.message || error);
     throw error.response?.data || error;
@@ -196,7 +195,7 @@ export const UpdateUserByEmail = async (data) => {
 export const getUserByEmail = async (email) => {
   try {
     const response = await api.get(`/auth/userByEmail/${email}`);
-    return null;
+    return response.data;
   } catch (error) {
     console.error('Error fetching user by email:', error);
     throw error;

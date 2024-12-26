@@ -8,7 +8,7 @@ function Previous_Appointments() {
   useEffect(() => {
     window.scrollTo(0, 0);
     const fetch = async () => {
-      const resp = await getAppointmentsByUserId(user);
+      const resp = await getAppointmentsByUserId(Cookies.get("jwt"));
       setData(resp);
     }
     fetch();

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   CommentText,
   CommentMetadata,
@@ -13,11 +13,12 @@ import {
 import { createComment } from "../../../api";
 import { useParams } from "react-router-dom";
 import Cookies from "js-cookie";
+import MyContext from "../../../Context";
 
 const CommentSection = ({ comments, setReload, reload }) => {
   const { id } = useParams(); // Retrieve the targetBlogId from the URL
   const [comment, setComment] = useState("");
-  const user = Cookies.get("user");
+  const { user } = useContext(MyContext);
 
   const submitComment = async (e) => {
     if (!comment.trim()) {
