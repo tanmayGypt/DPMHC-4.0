@@ -16,7 +16,11 @@ const noAuthRoutes = [
   '/auth/resetPassword',
   '/Login',
   '/forgot-password',
-  '/forgot-password/Otp'
+  '/forgot-password/Otp',
+  "/alerts",
+  "/Blogs",
+  "/category",
+  "/Gallery"
 ];
 
 
