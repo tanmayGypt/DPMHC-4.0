@@ -8,6 +8,8 @@ export default function MedicineList() {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [filteredMedicines, setFilteredMedicines] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(true); // Add loading state
+
   // Fetch Medicines Data
   useEffect(() => {
     const fetch = async () => {
@@ -18,6 +20,8 @@ export default function MedicineList() {
         setMedicineData(resp);
       } catch (error) {
         console.error("Error fetching medicines data:", error);
+      } finally {
+        setLoading(false); // Set loading to false once data is fetched
       }
     };
     fetch();
@@ -56,23 +60,35 @@ export default function MedicineList() {
           onChange={(e) => setSelectedCategory(e.target.value)}
         >
           <option value="All">All Categories</option>
-          {categories?.filter((item) => item.subCategory === "Medicine").map((item) => <option value={item.categoryName}>{item.categoryName}</option>)}
-          {/* Add more categories as needed */}
+          {categories?.filter((item) => item.subCategory === "Medicine").map((item) => (
+            <option key={item.categoryName} value={item.categoryName}>
+              {item.categoryName}
+            </option>
+          ))}
         </select>
       </div>
 
-      {/* Medicines Grid */}
-      <div className="flex flex-wrap">
-        {filteredMedicines?.length > 0 && filteredBlogs.filter((item) => item.published === true && item.modelCategoty === 1) ? (
-          filteredMedicines?.filter((item) => item.published && item.modelCategoty === 1).map((item) => (
-            <Medicine_Card key={item.id} medicine={item} />
-          ))
-        ) : (
-          <p className="text-center w-full text-gray-500">
-            No medicines match your search or selected category.
-          </p>
-        )}
-      </div>
+      {/* Loader Section */}
+      {loading ? (
+        <div className="flex justify-center items-center h-64">
+          <div className="spinner-border animate-spin inline-block w-12 h-12 border-4 border-current border-t-transparent rounded-full" role="status">
+            <span className="sr-only">Loading...</span>
+          </div>
+        </div>
+      ) : (
+        <div className="flex flex-wrap">
+          {/* Medicines Grid */}
+          {filteredMedicines?.length && filteredMedicines.filter((item) => item.published === true).length > 0 ? (
+            filteredMedicines.filter((item) => item.published === true && item.modelCategoty === 1).map((item) => (
+              <Medicine_Card key={item.id} medicine={item} />
+            ))
+          ) : (
+            <p className="text-center w-full text-gray-500">
+              No medicines match your search or selected category.
+            </p>
+          )}
+        </div>
+      )}
     </div>
   );
 }
