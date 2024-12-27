@@ -24,6 +24,8 @@ export default function Appform() {
 
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
+  const [showConfirmation, setShowConfirmation] = useState(false); // Show confirmation modal
+  const [showSuccess, setShowSuccess] = useState(false); // Show success modal
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -75,36 +77,44 @@ export default function Appform() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (validate()) {
-      setLoading(true);
-      try {
-        let imageUrl = null;
-        if (file) {
-          setUploading(true);
-          imageUrl = await uploadToCloudinary([file]);
-          setUploading(false);
-        }
-
-        const appointmentData = {
-          name: formData.name,
-          phone: cleanPhoneNumber(formData.phone),
-          emailAddress: formData.email,
-          date: formData.date,
-          time: formData.time,
-          message: formData.message,
-          documentUrl: imageUrl ? imageUrl[0] : null,
-          userId: existingUser
-        };
-
-        const response = await createAppointment(appointmentData);
-        alert("Success, Your Appointment has been booked Successfully");
-
-        navigate("/Appointment/prev-apps");
-      } catch (error) {
-        console.error("Error submitting form:", error);
-      } finally {
-        setLoading(false);
-      }
+      setShowConfirmation(true); // Show confirmation modal
     }
+  };
+
+  const handleConfirmBooking = async () => {
+    setLoading(true);
+    try {
+      let imageUrl = null;
+      if (file) {
+        setUploading(true);
+        imageUrl = await uploadToCloudinary([file]);
+        setUploading(false);
+      }
+
+      const appointmentData = {
+        name: formData.name,
+        phone: cleanPhoneNumber(formData.phone),
+        emailAddress: formData.email,
+        date: formData.date,
+        time: formData.time,
+        message: formData.message,
+        documentUrl: imageUrl ? imageUrl[0] : null,
+        userId: existingUser
+      };
+
+      const response = await createAppointment(appointmentData);
+      setShowConfirmation(false); // Close confirmation modal
+      setShowSuccess(true); // Show success modal
+    } catch (error) {
+      console.error("Error submitting form:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleCloseSuccessModal = () => {
+    setShowSuccess(false);
+    navigate("/Appointment/prev-apps");
   };
 
   return (
@@ -216,13 +226,54 @@ export default function Appform() {
               {uploading && <p className="text-red-500">Uploading file...</p>}
             </div>
             <div>
-              <button className="w-full text-center font-semibold text-lg bg-indigo-600 text-white py-4 rounded-lg hover:bg-indigo-700 focus:ring focus:ring-indigo-200">
+              <button type="submit" className="w-full text-center font-semibold text-lg bg-indigo-600 text-white py-4 rounded-lg hover:bg-indigo-700 focus:ring focus:ring-indigo-200">
                 Book Appointment
               </button>
             </div>
           </form>
         </div>
       </div>
+
+      {/* Confirmation Modal */}
+      {showConfirmation && (
+        <div className="fixed inset-0 flex items-center justify-center bg-gray-200 bg-opacity-90 z-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg">
+            <h3 className="text-xl font-semibold">Are you sure you want to book this appointment?</h3>
+            <div className="mt-4 flex justify-between">
+              <button
+                onClick={handleConfirmBooking}
+                className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700"
+              >
+                Yes, Book Appointment
+              </button>
+              <button
+                onClick={() => setShowConfirmation(false)}
+                className="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Success Modal */}
+      {showSuccess && (
+        <div className="fixed inset-0 flex items-center justify-center bg-gray-200 bg-opacity-90 z-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg">
+            <h3 className="text-xl font-semibold">Your appointment has been booked successfully!</h3>
+            <p className="mt-2">You must have received a confirmation email. Please contact 9716749169 if you have any queries.</p>
+            <div className="mt-4">
+              <button
+                onClick={handleCloseSuccessModal}
+                className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {loading && (
         <div className="fixed inset-0 flex items-center justify-center bg-gray-200 bg-opacity-90 z-50">
