@@ -8,6 +8,7 @@ const FeedbackPage = () => {
     const [message, setMessage] = useState("");
     const [category, setCategory] = useState("Complaint");
     const [isSubmitting, setIsSubmitting] = useState(false); // Loader state
+    const [submitMessage, setSubmitMessage] = useState(""); // Message for submission status
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -26,10 +27,13 @@ const FeedbackPage = () => {
         }
 
         setIsSubmitting(true); // Start loader
+        setSubmitMessage("Submitting..."); // Set submission message
+
         try {
             const resp = await createFeedback({ user, title, message, category });
             if (resp) {
-                alert("Thanks for the feedback!");
+                alert("Thanks for Your feedback")
+                setSubmitMessage("Thanks for the feedback!"); // Success message
                 // Reset form after successful submission
                 setTitle("");
                 setMessage("");
@@ -37,7 +41,7 @@ const FeedbackPage = () => {
             }
         } catch (error) {
             console.error("Error submitting feedback:", error);
-            alert("Something went wrong. Please try again.");
+            setSubmitMessage("Something went wrong. Please try again."); // Error message
         } finally {
             setIsSubmitting(false); // Stop loader
         }
@@ -94,13 +98,24 @@ const FeedbackPage = () => {
                     />
                 </div>
 
-                <button
-                    type="submit"
-                    className="rounded w-full border-0 bg-indigo-500 py-2 px-6 text-lg text-white hover:bg-indigo-600 focus:outline-none disabled:bg-gray-400 disabled:cursor-not-allowed"
-                    disabled={isSubmitting} // Disable button while submitting
-                >
-                    {isSubmitting ? "Submitting..." : "Submit"}
-                </button>
+                <div className="mb-4">
+                    {isSubmitting ? (
+                        <div className="flex justify-center items-center">
+                            <div className="spinner-border animate-spin inline-block w-12 h-12 border-4 border-current border-t-transparent rounded-full" role="status">
+                                <span className="sr-only">Loading...</span>
+                            </div>
+                            <span className="ml-4 text-gray-700">{submitMessage}</span>
+                        </div>
+                    ) : (
+                        <button
+                            type="submit"
+                            className="rounded w-full border-0 bg-indigo-500 py-2 px-6 text-lg text-white hover:bg-indigo-600 focus:outline-none disabled:bg-gray-400 disabled:cursor-not-allowed"
+                            disabled={isSubmitting} // Disable button while submitting
+                        >
+                            Submit
+                        </button>
+                    )}
+                </div>
             </form>
 
             <p className="mt-3 text-xs text-gray-500">

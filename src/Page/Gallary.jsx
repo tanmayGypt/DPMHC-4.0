@@ -4,12 +4,20 @@ import { getImages } from "../../api";
 
 function Gallary() {
   const [Images, setImages] = useState([]);
+  const [loading, setLoading] = useState(true); // Add loading state
+
   useEffect(() => {
     window.scrollTo(0, 0);
     const fetch = async () => {
-      const resp = await getImages();
-      setImages(resp);
-    }
+      try {
+        const resp = await getImages();
+        setImages(resp);
+      } catch (error) {
+        console.error("Error fetching images:", error);
+      } finally {
+        setLoading(false); // Set loading to false after data is fetched
+      }
+    };
     fetch();
   }, []);
 
@@ -36,27 +44,42 @@ function Gallary() {
         </p>
       </div>
 
-      {/* Gallery */}
-      {Images?.length && Images.filter((item) => item.active === true).length > 0 ? <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {Images.filter((item) => item.active).map((image, index) => (
-          <div
-            key={index}
-            className="relative group overflow-hidden rounded-lg shadow-lg cursor-pointer transition-transform duration-300 transform hover:scale-105"
-            onClick={() => handleImageClick(image)}
-          >
-            <img
-              src={image.imageUrl}
-              alt={image.title}
-              className="w-full h-full object-cover rounded-lg transition-all duration-200 ease-in-out"
-            />
-            <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex justify-center items-center">
-              <span className="text-white text-lg font-semibold">{image?.title}</span>
-            </div>
+      {/* Loader while images are loading */}
+      {loading ? (
+        <div className="flex justify-center items-center h-64">
+          <div className="spinner-border animate-spin inline-block w-12 h-12 border-4 border-current border-t-transparent rounded-full" role="status">
+            <span className="sr-only">Loading...</span>
           </div>
-        ))}
-      </div> : <div className="flex justify-center items-center h-64 text-gray-500 text-lg font-medium">
-        No image to display, please come back later
-      </div>}
+        </div>
+      ) : (
+        // Gallery Grid
+        <div>
+          {Images?.length && Images.filter((item) => item.active === true).length > 0 ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+              {Images.filter((item) => item.active).map((image, index) => (
+                <div
+                  key={index}
+                  className="relative group overflow-hidden rounded-lg shadow-lg cursor-pointer transition-transform duration-300 transform hover:scale-105"
+                  onClick={() => handleImageClick(image)}
+                >
+                  <img
+                    src={image.imageUrl}
+                    alt={image.title}
+                    className="w-full h-full object-cover rounded-lg transition-all duration-200 ease-in-out"
+                  />
+                  <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex justify-center items-center">
+                    <span className="text-white text-lg font-semibold">{image?.title}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="flex justify-center items-center h-64 text-gray-500 text-lg font-medium">
+              No image to display, please come back later
+            </div>
+          )}
+        </div>
+      )}
 
       {/* Image Modal */}
       {modalOpen && selectedImage && (

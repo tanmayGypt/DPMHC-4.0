@@ -2,12 +2,14 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../../api";
 import Cookies from "js-cookie";
+
 const LoginScreen = () => {
     const navigate = useNavigate();
     const token = Cookies.get("jwt");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
+    const [loginMessage, setLoginMessage] = useState(""); // For displaying login status message
 
     useEffect(() => {
         const checkUserLoggedIn = async () => {
@@ -16,7 +18,7 @@ const LoginScreen = () => {
             }
         };
         checkUserLoggedIn();
-    }, []);
+    }, [token, navigate]);
 
     const validateEmail = (email) => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -35,16 +37,20 @@ const LoginScreen = () => {
         }
 
         setLoading(true);
+        setLoginMessage("Logging in...");
 
         try {
             const loginData = { email, password };
             const response = await loginUser(loginData);
 
             if (response) {
-                navigate("/")
+                setLoginMessage("Login successful!");
+                setTimeout(() => {
+                    navigate("/");
+                }, 1000); // Redirect after success
             }
         } catch (error) {
-            alert("Login Failed: Invalid email or password.");
+            setLoginMessage("Login Failed: Invalid email or password.");
             console.error("Login error:", error);
         } finally {
             setLoading(false);
@@ -91,8 +97,11 @@ const LoginScreen = () => {
                     </div>
                     <div>
                         {loading ? (
-                            <div className="flex justify-center">
-                                <div className="spinner-border text-blue-500"></div>
+                            <div className="flex justify-center items-center">
+                                <div className="spinner-border animate-spin inline-block w-12 h-12 border-4 border-current border-t-transparent rounded-full" role="status">
+                                    <span className="sr-only">Loading...</span>
+                                </div>
+                                <span className="ml-4 text-gray-700">{loginMessage}</span>
                             </div>
                         ) : (
                             <button
