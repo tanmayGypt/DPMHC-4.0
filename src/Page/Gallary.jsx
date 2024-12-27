@@ -37,7 +37,7 @@ function Gallary() {
       </div>
 
       {/* Gallery */}
-      {Images?.length > 0 ? <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      {Images?.length && Images.filter((item) => item.active === true).length > 0 ? <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {Images.filter((item) => item.active).map((image, index) => (
           <div
             key={index}
