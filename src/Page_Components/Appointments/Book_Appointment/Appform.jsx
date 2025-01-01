@@ -9,6 +9,11 @@ export default function Appform() {
   const existingUser = Cookies.get("user");
   const [file, setFile] = useState(null);
   const [uploading, setUploading] = useState(false);
+  const navigate = useNavigate();
+  const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
+  const [showConfirmation, setShowConfirmation] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -20,12 +25,7 @@ export default function Appform() {
     user: existingUser
   });
 
-  const navigate = useNavigate();
 
-  const [errors, setErrors] = useState({});
-  const [loading, setLoading] = useState(false);
-  const [showConfirmation, setShowConfirmation] = useState(false); // Show confirmation modal
-  const [showSuccess, setShowSuccess] = useState(false); // Show success modal
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -216,7 +216,7 @@ export default function Appform() {
               {errors.message && <p className="text-red-500">{errors.message}</p>}
             </div>
 
-            <div className="mb-5 pt-3">
+            {/* <div className="mb-5 pt-3">
               <label className="block font-semibold text-xl text-gray-900 mb-5">Upload Images (Optional)</label>
               <input
                 type="file"
@@ -224,7 +224,7 @@ export default function Appform() {
                 className="block w-full text-gray-900"
               />
               {uploading && <p className="text-red-500">Uploading file...</p>}
-            </div>
+            </div> */}
             <div>
               <button type="submit" className="w-full text-center font-semibold text-lg bg-indigo-600 text-white py-4 rounded-lg hover:bg-indigo-700 focus:ring focus:ring-indigo-200">
                 Book Appointment
@@ -261,8 +261,9 @@ export default function Appform() {
       {showSuccess && (
         <div className="fixed inset-0 flex items-center justify-center bg-gray-200 bg-opacity-90 z-50">
           <div className="bg-white p-6 rounded-lg shadow-lg">
-            <h3 className="text-xl font-semibold">Your appointment has been booked successfully!</h3>
-            <p className="mt-2">You must have received a confirmation email. Please contact 9716749169 if you have any queries.</p>
+            <h3 className="text-xl font-semibold">Your appointment has been successfully scheduled!</h3>
+            <p className="mt-2">A confirmation email has been sent to you. Please reach out to our official WhatsApp for your appointment confirmation before the scheduled time.</p>
+
             <div className="mt-4">
               <button
                 onClick={handleCloseSuccessModal}

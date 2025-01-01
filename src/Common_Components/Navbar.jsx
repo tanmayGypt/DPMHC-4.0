@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaBell } from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
@@ -19,13 +19,14 @@ export default function Navbar() {
 
   const handleSelectChange = (e) => {
     const selectedValue = e.target.value;
-    setShowHamburger(false); // Close the hamburger menu
+    setShowHamburger(false);
     if (selectedValue === "prev-apps") {
       navigate("/Appointment/prev-apps");
     } else if (selectedValue === "book-app") {
       navigate("/Appointment");
     }
   };
+
 
   const userHandler = () => {
     Cookie.remove("user");
