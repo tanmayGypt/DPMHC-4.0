@@ -40,12 +40,12 @@ function Home() {
   }, []);
   return (
     <div>
-      {showPopup && (
+      {showPopup && notificationData[0]?.active && notificationData[0]?.showOnWeb && (
         <div style={styles.overlay}>
           <div style={styles.popup}>
-            <h2 style={styles.title}>Service Update</h2>
+            <h2 style={styles.title}>{notificationData[0]?.title}</h2>
             <p style={styles.message}>
-              All our services and features are working perfectly! You can sign up to create your account and log in to book appointments and access more features. We are also excited to announce that more exciting features will be released soon. Stay tuned!
+              {notificationData[0]?.message}
             </p>
             <button style={styles.button} onClick={closePopup}>
               Close
