@@ -228,7 +228,11 @@ export const createFeedback = async (feedbackData) => {
 
 export const getBlogById = async (id) => {
   try {
-    const response = await api.get(`/Blogs/${id}`);
+    const response = await api.get(`/Blogs/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     return response.data;
   } catch (error) {
     console.error(`Error fetching blog by ID (${id}):`, error);

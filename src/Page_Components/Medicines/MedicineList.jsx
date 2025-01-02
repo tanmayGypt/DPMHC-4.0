@@ -78,7 +78,7 @@ export default function MedicineList() {
       ) : (
         <div className="flex flex-wrap">
           {/* Medicines Grid */}
-          {filteredMedicines?.length && filteredMedicines.filter((item) => item.published === true).length > 0 ? (
+          {filteredMedicines?.length && filteredMedicines.filter((item) => item.published === true && item.categoty == 1).length > 0 ? (
             filteredMedicines.filter((item) => item.published === true && item.modelCategoty === 1).map((item) => (
               <Medicine_Card key={item.id} medicine={item} />
             ))

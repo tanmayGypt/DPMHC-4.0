@@ -35,7 +35,8 @@ function Medicines({ blogsData }) {
   };
 
   // Render nothing if blogsData is empty
-  if (!blogsData || blogsData.length === 0) {
+  if (!blogsData || blogsData.length === 0 || blogsData.filter(item => item.modelCategoty === 1 && item.published).length < 2
+  ) {
     return null;
   }
 
@@ -55,7 +56,7 @@ function Medicines({ blogsData }) {
       </div>
 
       <Slider {...settings} className="text-center text-white p-4">
-        {blogsData?.filter((item) => item.modelCategoty === 0 && item.published).slice(0, 6).map((item) => (
+        {blogsData?.filter((item) => item?.modelCategoty === 1 && item?.published == true).slice(0, 6).map((item) => (
           <div className="">
             <Medicine_Card medicine={item} />
           </div>

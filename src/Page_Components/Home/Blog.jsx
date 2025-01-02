@@ -46,9 +46,15 @@ function Blog({ blogsData }) {
     ],
   };
 
-  if (!blogsData || blogsData.length === 0) {
+
+  if (
+    !blogsData ||
+    blogsData.length === 0 ||
+    blogsData.filter(item => item.modelCategoty === 0 && item.published).length < 2
+  ) {
     return null;
   }
+
   return (
     <div className="flex flex-col gap-y-4 my-16">
       <div className="mx-auto">
