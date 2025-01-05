@@ -76,8 +76,8 @@ export const loginUser = async (loginData) => {
       password: loginData.password
     });
     if (response.status == 200 && response.data !== "") {
-      Cookies.set("jwt", response.data);
-      Cookies.set("user", loginData.email);
+      Cookies.set("jwt", response.data, { expires: 1 / 24 });
+      Cookies.set("user", loginData.email, { expires: 1 / 24 });
     }
     return response.data;
   } catch (error) {
@@ -105,6 +105,7 @@ export const getAppointmentsByUserId = async (userId) => {
     throw error;
   }
 };
+
 export const getProducts = async () => {
   try {
     const response = await api.get('/Blogs');
