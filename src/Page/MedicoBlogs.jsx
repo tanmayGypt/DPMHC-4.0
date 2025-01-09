@@ -13,21 +13,26 @@ function MedicoBlogs() {
 
   // Fetching blog data and comments
   const fetchBlogAndComments = async () => {
-    const resp = await getBlogById(id);
-    setData(resp);
+    try {
+      const resp = await getBlogById(id);
+      if (resp) {
+        setData(resp);
 
-    // Fetch comments after blog data is set
-    if (resp?.id) {
-      const commentsResp = await getCommentsForPost(resp.id);
-      setComments(commentsResp);
+        // Fetch comments after blog data is set
+        if (resp?.id) {
+          const commentsResp = await getCommentsForPost(resp.id);
+          setComments(commentsResp);
+        }
+      }
+    } catch (error) {
+      console.error("Error fetching blog data:", error);
     }
   };
 
-  // Trigger fetchBlogAndComments on component mount or when 'id' changes
+  // Trigger fetchBlogAndComments on component mount or when 'id' or 'reload' changes
   useEffect(() => {
     fetchBlogAndComments();
-
-  }, [id, reload]);  // Dependency array includes 'id' and 'reload'
+  }, [id, reload]);
 
   const createMarkup = () => {
     return { __html: DOMPurify.sanitize(data?.body) };

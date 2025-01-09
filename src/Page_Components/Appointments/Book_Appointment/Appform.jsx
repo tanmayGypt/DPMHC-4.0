@@ -262,7 +262,7 @@ export default function Appform() {
         <div className="fixed inset-0 flex items-center justify-center bg-gray-200 bg-opacity-90 z-50">
           <div className="bg-white p-6 rounded-lg shadow-lg">
             <h3 className="text-xl font-semibold">Your appointment has been successfully scheduled!</h3>
-            <p className="mt-2">A confirmation email has been sent to you. Please reach out to our official WhatsApp for your appointment confirmation before the scheduled time.</p>
+            <p className="mt-2">A confirmation email has been sent to you. Please reach out to our official WhatsApp +91-9716749169 for your appointment confirmation before the scheduled time.</p>
 
             <div className="mt-4">
               <button
