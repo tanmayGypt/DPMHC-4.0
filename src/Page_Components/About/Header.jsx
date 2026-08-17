@@ -9,7 +9,7 @@ export default function Header() {
           <div className="flex flex-col items-center justify-center min-h-screen text-center bg-[rgba(21,21,21,0.7)] p-10">
             <div className="max-w-5xl mx-auto mb-20">
               <p className="text-white text-4xl font-bold leading-[55px]">
-                DP MEMORIAL HOMOEOPATHY CLINIC
+                DP MEMORIAL HOMOEOPATHY CLINIC sss
               </p>
               <img src="" alt="" id="logo1" className="w-12 mt-4 mb-6" />
               <p className="text-white text-xl leading-[35px] mb-6">
